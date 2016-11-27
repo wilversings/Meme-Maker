@@ -10,141 +10,57 @@ namespace Meme_Maker.Meme {
     class TopBottomMeme {
 
         // Image related fields
-        protected Bitmap image;
+        public Image Image { get; private set; }
         protected string filePath;
 
-        // Top/Bottom text related fields
-        protected string bottomText;
-        protected string topText;
+        public string UpperText { get; set; }
+        public string BottomText { get; set; }
 
         // Style/Font related fields
-        protected Font font;
-        protected SolidBrush brush;
+        public Font Font { get; set; }
+        public SolidBrush Brush { get; set; }
 
         protected const int textToImageRatio = 4;
         protected const int textMargin = 10;
 
         private void setDefault () {
-            font = new Font ("Arial", 30);
-            brush = new SolidBrush (Color.Black);
+            Font = new Font ("Arial", 30);
+            Brush = new SolidBrush (Color.Black);
         }
 
         public TopBottomMeme () {
             setDefault ();
-            image = null;
+            Image = null;
         }
-
-        // Some useless constructors
-        /*public Meme (Bitmap image) {
-            setDefault ();
-            this.image = image;
-            this.filePath = null;
-        }
-
-        public Meme (Bitmap image, string bottomText, string upperText) {
-            setDefault ();
-            this.image = image;
-            this.bottomText = bottomText;
-            this.upperText = upperText;
-            this.filePath = null;
-        }
-
-        public Meme (string filePath) {
-            setDefault ();
-            this.image = (Bitmap)Image.FromFile (filePath);
-            this.filePath = filePath;
-        }
-
-        public Meme (string filePath, string bottomText, string upperText) {
-            setDefault ();
-            this.image = (Bitmap)Image.FromFile (filePath);
-            this.bottomText = bottomText;
-            this.upperText = upperText;
-            this.filePath = filePath;
-        }*/
-
-        public string UpperText
-        {
-            set
-            {
-                this.topText = value;
-            }
-            get
-            {
-                return this.topText;
-            }
-        }
-        public string BottomText
-        {
-            set
-            {
-                this.bottomText = value;
-            }
-            get
-            {
-                return this.bottomText;
-            }
-        }
-        public Font Font
-        {
-            set
-            {
-                font = value;
-            }
-            get
-            {
-                return font;
-            }
-        }
-        public string FilePath
-        {
-            set
-            {
+       
+        public string FilePath {
+            set {
                 filePath = value;
-                image = null;
-                image = (Bitmap)Image.FromFile (value);
+                Image = null;
+                Image = (Bitmap)Image.FromFile (value);
             }
-            get
-            {
+            get {
                 return filePath;
-            }
-        }
-        public Image Image
-        {
-            get
-            {
-                return image;
-            }
-        }
-        public SolidBrush Brush
-        {
-            set
-            {
-                brush = value;
-            }
-            get
-            {
-                return brush;
             }
         }
 
         public virtual Bitmap createMeme () {
 
-            if (image == null)
+            if (Image == null)
                 return null;
 
-            Bitmap clone = (Bitmap)image.Clone ();
+            Bitmap clone = Image.Clone () as Bitmap;
 
             StringFormat format = new StringFormat ();
             format.LineAlignment = StringAlignment.Center;
             format.Alignment = StringAlignment.Center;
 
-            var topRect = new Rectangle (0, textMargin, image.Width, image.Height / textToImageRatio);
-            var bottomRect = new Rectangle (0, (textToImageRatio - 1) * image.Height / textToImageRatio - textMargin, image.Width, image.Height / textToImageRatio);
+            var topRect = new Rectangle (0, textMargin, Image.Width, Image.Height / textToImageRatio);
+            var bottomRect = new Rectangle (0, (textToImageRatio - 1) * Image.Height / textToImageRatio - textMargin, Image.Width, Image.Height / textToImageRatio);
 
             using (Graphics gfx = Graphics.FromImage (clone)) {
-                gfx.DrawString (topText, font, brush, topRect, format);
-                gfx.DrawString (bottomText, font, brush, bottomRect, format);
+                gfx.DrawString (UpperText, Font, Brush, topRect, format);
+                gfx.DrawString (BottomText, Font, Brush, bottomRect, format);
             }
 
             return clone;

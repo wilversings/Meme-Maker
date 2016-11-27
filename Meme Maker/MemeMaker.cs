@@ -28,14 +28,14 @@ namespace Meme_Maker {
 
         }
 
-        private void updateMemeAsync () {
+        private void updateMeme () {
             mainMeme.UpperText = upperText.Text;
             mainMeme.BottomText = bottomText.Text;
 
             meme.Image = mainMeme.createMeme ();
         }
         private void updateMeme (object sender, EventArgs e) {
-            updateMemeAsync ();
+            updateMeme ();
         }
 
         private void button1_Click (object sender, EventArgs e) { 
