@@ -5,12 +5,13 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Meme_Maker.ObserverLayer;
 
 namespace Meme_Maker.Meme {
 
     class TopBottomMeme : IObserver {
 
-        //private observerSubject;
+        private Subject obsSubject;
 
         // Image related fields
         public Image Image { get; private set; }
@@ -30,14 +31,15 @@ namespace Meme_Maker.Meme {
         protected const int textToImageRatio = 4;
         protected const int textMargin = 10;
 
-        private void setDefault () {
+        private void setDefaultStyle () {
             Font = new Font ("Arial", 30);
             Brush = new SolidBrush (Color.Black);
         }
 
-        public TopBottomMeme () {
-            setDefault ();
-            Image = null;
+        public TopBottomMeme (Subject obsSubject) {
+            this.setDefaultStyle ();
+            this.Image = null;
+            this.obsSubject = obsSubject;
         }
        
         public void AppendFilePath (string filePath) {

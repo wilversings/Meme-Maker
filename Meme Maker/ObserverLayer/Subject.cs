@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Meme_Maker.ObserverLayer {
-    class Subject {
+    public class Subject {
 
         private List<IObserver> observers;
 

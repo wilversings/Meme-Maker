@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Meme_Maker.ObserverLayer;
 
 namespace Meme_Maker {
     static class Program {
@@ -11,9 +12,12 @@ namespace Meme_Maker {
         /// </summary>
         [STAThread]
         static void Main () {
+
+            Subject obsSubject = new Subject ();
+
             Application.EnableVisualStyles ();
             Application.SetCompatibleTextRenderingDefault (false);
-            Application.Run (new MemeMaker ());
+            Application.Run (new MemeMaker (obsSubject));
         }
     }
 }
