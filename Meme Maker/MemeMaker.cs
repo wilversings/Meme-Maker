@@ -90,7 +90,6 @@ namespace Meme_Maker {
             meme.Image = mainMeme.createMeme ();
 
         }
-
         private void MemeMakerDragEnter (object sender, DragEventArgs e) {
             string[] droppedFiles;
             try {
