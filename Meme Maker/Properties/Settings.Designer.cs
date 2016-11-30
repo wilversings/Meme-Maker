@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Meme_Maker.Properties {
+namespace MemeMaker.Properties {
 
 
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute ()]

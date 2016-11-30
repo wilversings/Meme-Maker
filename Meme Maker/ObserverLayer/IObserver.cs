@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Meme_Maker.ObserverLayer {
+namespace MemeMaker.ObserverLayer {
 
     public enum Context {
         FilePath
     }
     public interface IObserver {
-        void notify (Context notifyingContext);
+        void Notify (Context notifyingContext);
     }
 
 }

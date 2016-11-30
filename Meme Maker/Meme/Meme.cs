@@ -1,13 +1,13 @@
-﻿using Meme_Maker.ObserverLayer;
+﻿using MemeMaker.ObserverLayer;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Meme_Maker.ObserverLayer;
+using MemeMaker.ObserverLayer;
 
-namespace Meme_Maker.Meme {
+namespace MemeMaker.Meme {
 
     class TopBottomMeme : IObserver {
 
@@ -16,10 +16,6 @@ namespace Meme_Maker.Meme {
         // Image related fields
         public Image Image { get; private set; }
         protected string filePath;
-
-        private static HashSet<string> acceptedFileFormats = new HashSet<string> (new string[]{
-            "jpg", "jpeg", "jpe", "jfif", "png"
-        });
 
         public string UpperText { get; set; }
         public string BottomText { get; set; }
@@ -31,13 +27,13 @@ namespace Meme_Maker.Meme {
         protected const int textToImageRatio = 4;
         protected const int textMargin = 10;
 
-        private void setDefaultStyle () {
+        private void SetDefaultStyle () {
             Font = new Font ("Arial", 30);
             Brush = new SolidBrush (Color.Black);
         }
 
         public TopBottomMeme (Subject obsSubject) {
-            this.setDefaultStyle ();
+            this.SetDefaultStyle ();
             this.Image = null;
             this.obsSubject = obsSubject;
         }
@@ -56,7 +52,7 @@ namespace Meme_Maker.Meme {
             }
         }
 
-        public virtual Bitmap createMeme () {
+        public virtual Bitmap CreateMeme () {
 
             if (Image == null)
                 return null;
@@ -79,12 +75,15 @@ namespace Meme_Maker.Meme {
 
         }
 
-        public static bool IsAcceptedFileFormat(string path) {
-            return acceptedFileFormats.Contains (path.Split ('\\').Last ().Split ('.')[1]);
+        public void Notify (Context notifyingContext) {
+            throw new NotImplementedException ();
         }
 
-        public void notify (Context notifyingContext) {
-            throw new NotImplementedException ();
+        private static HashSet<string> acceptedFileFormats = new HashSet<string> (new string[]{
+            "jpg", "jpeg", "jpe", "jfif", "png"
+        });
+        public static bool IsAcceptedFileFormat (string path) {
+            return acceptedFileFormats.Contains (path.Split ('\\').Last ().Split ('.')[1]);
         }
     }
 }

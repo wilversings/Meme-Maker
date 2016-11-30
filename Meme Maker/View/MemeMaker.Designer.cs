@@ -1,4 +1,4 @@
-﻿namespace Meme_Maker {
+﻿namespace MemeMaker {
     partial class MemeMaker {
         /// <summary>
         /// Required designer variable.
@@ -67,7 +67,7 @@
             this.upperText.Size = new System.Drawing.Size(193, 60);
             this.upperText.TabIndex = 0;
             this.upperText.Text = "";
-            this.upperText.TextChanged += new System.EventHandler(this.updateMeme);
+            this.upperText.TextChanged += new System.EventHandler(this.UpdateMeme);
             // 
             // bottomText
             // 
@@ -76,7 +76,7 @@
             this.bottomText.Size = new System.Drawing.Size(212, 61);
             this.bottomText.TabIndex = 1;
             this.bottomText.Text = "";
-            this.bottomText.TextChanged += new System.EventHandler(this.updateMeme);
+            this.bottomText.TextChanged += new System.EventHandler(this.UpdateMeme);
             // 
             // label1
             // 
@@ -140,7 +140,7 @@
             this.fontComboBox.Name = "fontComboBox";
             this.fontComboBox.Size = new System.Drawing.Size(133, 21);
             this.fontComboBox.TabIndex = 6;
-            this.fontComboBox.SelectedIndexChanged += new System.EventHandler(this.updateTextStyle);
+            this.fontComboBox.SelectedIndexChanged += new System.EventHandler(this.UpdateTextStyle);
             // 
             // fontSizeNumeric
             // 
@@ -158,7 +158,7 @@
             0,
             0,
             0});
-            this.fontSizeNumeric.ValueChanged += new System.EventHandler(this.updateTextStyle);
+            this.fontSizeNumeric.ValueChanged += new System.EventHandler(this.UpdateTextStyle);
             // 
             // button2
             // 
@@ -168,7 +168,7 @@
             this.button2.TabIndex = 8;
             this.button2.Text = "Save as...";
             this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.saveImage);
+            this.button2.Click += new System.EventHandler(this.SaveImage);
             // 
             // imageSaveDialog
             // 
@@ -184,7 +184,7 @@
             this.boldCheckBox.TabIndex = 9;
             this.boldCheckBox.Text = "Bold";
             this.boldCheckBox.UseVisualStyleBackColor = true;
-            this.boldCheckBox.CheckedChanged += new System.EventHandler(this.updateTextStyle);
+            this.boldCheckBox.CheckedChanged += new System.EventHandler(this.UpdateTextStyle);
             // 
             // italicCheckBox
             // 
@@ -195,7 +195,7 @@
             this.italicCheckBox.TabIndex = 10;
             this.italicCheckBox.Text = "Italic";
             this.italicCheckBox.UseVisualStyleBackColor = true;
-            this.italicCheckBox.CheckedChanged += new System.EventHandler(this.updateTextStyle);
+            this.italicCheckBox.CheckedChanged += new System.EventHandler(this.UpdateTextStyle);
             // 
             // changeColorButton
             // 
@@ -205,7 +205,7 @@
             this.changeColorButton.TabIndex = 11;
             this.changeColorButton.Text = "Text Color...";
             this.changeColorButton.UseVisualStyleBackColor = true;
-            this.changeColorButton.Click += new System.EventHandler(this.changeColor);
+            this.changeColorButton.Click += new System.EventHandler(this.ChangeColor);
             // 
             // menuStrip1
             // 
@@ -258,7 +258,7 @@
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
             this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.saveAsToolStripMenuItem.Text = "Save as...";
-            this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveImage);
+            this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.SaveImage);
             // 
             // MemeMaker
             // 
@@ -287,7 +287,7 @@
             this.Text = "Meme Maker";
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.MemeMakerDragDrop);
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.MemeMakerDragEnter);
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MemeMaker_KeyDown);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MemeMakerKeyDown);
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.meme)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.fontSizeNumeric)).EndInit();

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Meme_Maker.ObserverLayer {
+namespace MemeMaker.ObserverLayer {
     public class Subject {
 
         private List<IObserver> observers;
@@ -19,8 +19,8 @@ namespace Meme_Maker.ObserverLayer {
             observers.Remove (obs);
         }
 
-        public void notify (Context context) {
-            observers.ForEach (o => o.notify (context));
+        public void NotifyAll (Context context) {
+            observers.ForEach (o => o.Notify (context));
         }
 
     }
