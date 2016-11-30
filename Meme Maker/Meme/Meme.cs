@@ -13,6 +13,10 @@ namespace Meme_Maker.Meme {
         public Image Image { get; private set; }
         protected string filePath;
 
+        private static HashSet<string> acceptedFileFormats = new HashSet<string> (new string[]{
+            "jpg", "jpeg", "jpe", "jfif", "png"
+        });
+
         public string UpperText { get; set; }
         public string BottomText { get; set; }
 
@@ -65,6 +69,10 @@ namespace Meme_Maker.Meme {
 
             return clone;
 
+        }
+
+        public static bool IsAcceptedFileFormat(string path) {
+            return acceptedFileFormats.Contains (path.Split ('\\').Last ().Split ('.')[1]);
         }
 
     }

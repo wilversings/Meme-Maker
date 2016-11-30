@@ -116,7 +116,7 @@
             this.button1.TabIndex = 5;
             this.button1.Text = "Browse for image...";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button1.Click += new System.EventHandler(this.BrowseForImageClick);
             // 
             // imageOpenDialog
             // 
@@ -201,6 +201,7 @@
             // 
             // MemeMaker
             // 
+            this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(436, 544);
@@ -221,6 +222,8 @@
             this.MaximizeBox = false;
             this.Name = "MemeMaker";
             this.Text = "Meme Maker";
+            this.DragDrop += new System.Windows.Forms.DragEventHandler(this.MemeMakerDragDrop);
+            this.DragEnter += new System.Windows.Forms.DragEventHandler(this.MemeMakerDragEnter);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MemeMaker_KeyDown);
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.meme)).EndInit();

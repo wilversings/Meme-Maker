@@ -38,7 +38,7 @@ namespace Meme_Maker {
             updateMeme ();
         }
 
-        private void button1_Click (object sender, EventArgs e) { 
+        private void BrowseForImageClick (object sender, EventArgs e) { 
             if (imageOpenDialog.ShowDialog () == DialogResult.OK) {
                 mainMeme.FilePath = imageOpenDialog.FileName;
                 meme.Image = mainMeme.createMeme ();
@@ -79,6 +79,34 @@ namespace Meme_Maker {
                 saveImage (null, null);
             }
 
+        }
+
+        private void MemeMakerDragDrop (object sender, DragEventArgs e) {
+            string[] droppedFiles;
+            // We passed the DragEnter event, and we can assure that the user dropped
+            // files, with the right format
+            droppedFiles = e.Data.GetData (DataFormats.FileDrop) as string[];
+            mainMeme.FilePath = droppedFiles.First ();
+            meme.Image = mainMeme.createMeme ();
+
+        }
+
+        private void MemeMakerDragEnter (object sender, DragEventArgs e) {
+            string[] droppedFiles;
+            try {
+                droppedFiles = e.Data.GetData (DataFormats.FileDrop) as string[];
+            }
+            catch (System.ArgumentNullException ex) {
+                // Handling dragging anything other than files
+                return;
+            }
+            // Checking the file formats
+            foreach (string path in droppedFiles) {
+                if (!TopBottomMeme.IsAcceptedFileFormat(path)) {
+                    return;
+                }
+            }
+            e.Effect = DragDropEffects.Copy;
         }
     }
 }
