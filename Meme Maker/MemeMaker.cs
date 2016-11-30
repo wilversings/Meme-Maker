@@ -9,16 +9,20 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Meme_Maker.Meme;
 using System.Drawing.Text;
+using Meme_Maker.ObserverLayer;
 
 namespace Meme_Maker {
-    public partial class MemeMaker : Form {
+    public partial class MemeMaker : Form, IObserver {
 
         private Meme.TopBottomMeme mainMeme;
+        private Subject obsSubject;
 
-        public MemeMaker () {
+        public MemeMaker (Subject obsSubject) {
 
             InitializeComponent ();
-            mainMeme = new Meme.TopBottomMeme ();
+
+            this.obsSubject = obsSubject;
+            mainMeme = new Meme.TopBottomMeme (obsSubject);
 
             using (var fonts = new InstalledFontCollection ()) {
                 foreach (var font in fonts.Families) {
@@ -106,6 +110,16 @@ namespace Meme_Maker {
                 }
             }
             e.Effect = DragDropEffects.Copy;
+        }
+
+        public void notify (Context notifyingContext) {
+
+            switch (notifyingContext) {
+                case Context.FilePath:
+                    throw new NotImplementedException ();
+                    break;
+            }
+
         }
     }
 }

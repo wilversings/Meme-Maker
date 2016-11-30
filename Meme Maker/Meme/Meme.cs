@@ -1,13 +1,17 @@
-﻿using System;
+﻿using Meme_Maker.ObserverLayer;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Meme_Maker.ObserverLayer;
 
 namespace Meme_Maker.Meme {
 
-    class TopBottomMeme {
+    class TopBottomMeme : IObserver {
+
+        private Subject obsSubject;
 
         // Image related fields
         public Image Image { get; private set; }
@@ -27,21 +31,25 @@ namespace Meme_Maker.Meme {
         protected const int textToImageRatio = 4;
         protected const int textMargin = 10;
 
-        private void setDefault () {
+        private void setDefaultStyle () {
             Font = new Font ("Arial", 30);
             Brush = new SolidBrush (Color.Black);
         }
 
-        public TopBottomMeme () {
-            setDefault ();
-            Image = null;
+        public TopBottomMeme (Subject obsSubject) {
+            this.setDefaultStyle ();
+            this.Image = null;
+            this.obsSubject = obsSubject;
         }
        
+        public void AppendFilePath (string filePath) {
+        }
+
         public string FilePath {
             set {
                 filePath = value;
                 Image = null;
-                Image = (Bitmap)Image.FromFile (value);
+                Image = Image.FromFile (value) as Bitmap;
             }
             get {
                 return filePath;
@@ -75,5 +83,8 @@ namespace Meme_Maker.Meme {
             return acceptedFileFormats.Contains (path.Split ('\\').Last ().Split ('.')[1]);
         }
 
+        public void notify (Context notifyingContext) {
+            throw new NotImplementedException ();
+        }
     }
 }
