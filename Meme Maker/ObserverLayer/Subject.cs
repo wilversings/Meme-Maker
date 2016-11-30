@@ -22,6 +22,13 @@ namespace MemeMaker.ObserverLayer {
         public void NotifyAll (Context context) {
             observers.ForEach (o => o.Notify (context));
         }
+        public void NotifyBy (Context context, Func<IObserver, bool> byFn) {
+            observers.ForEach (o => {
+                if (byFn (o)) {
+                    o.Notify (context);
+                }
+            });
+        }
 
     }
 }
