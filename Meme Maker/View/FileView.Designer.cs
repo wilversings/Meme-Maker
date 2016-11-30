@@ -1,4 +1,4 @@
-﻿namespace Meme_Maker.Meme {
+﻿namespace MemeMaker.Meme {
     partial class FileView {
         /// <summary>
         /// Required designer variable.

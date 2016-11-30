@@ -7,15 +7,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Meme_Maker.ObserverLayer;
+using MemeMaker.ObserverLayer;
 
-namespace Meme_Maker.Meme {
+namespace MemeMaker.Meme {
     public partial class FileView : Form, IObserver {
         public FileView (Subject obsSubject) {
             InitializeComponent ();
         }
 
-        public void notify (Context notifyingContext) {
+        public void Notify (Context notifyingContext) {
 
             switch (notifyingContext) {
                 case Context.FilePath:
