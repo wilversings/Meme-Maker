@@ -8,11 +8,24 @@ using MemeMaker.ObserverLayer;
 using System.Collections.ObjectModel;
 
 namespace MemeMaker.ObserverLayer {
-    class ObservableList<T> : ObservableCollection<T> {
-        public ObservableList (Context notifyingContext, Subject obsSubject) : base() {
-            this.CollectionChanged += (sender, eventArgs) => {
-                obsSubject.NotifyAll (notifyingContext);
-            };
+    public class ObservableList<T> : ObservableCollection<T> {
+        public ObservableList (Subject<T> obsSubject) : base() {
+            this.ObserverSubject = obsSubject;
         }
+        public ObservableList () : base () { }
+
+        private Subject<T> observerSubject;
+        public Subject<T> ObserverSubject {
+            get {
+                return observerSubject;
+            }
+            set {
+                this.observerSubject = value;
+                this.CollectionChanged += (sender, eventArgs) => {
+                    value.NotifyAll ();
+                };
+            }
+        }
+
     }
 }

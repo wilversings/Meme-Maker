@@ -15,13 +15,14 @@ namespace MemeMaker {
     public partial class MemeMaker : Form, IObserver {
 
         private Meme.TopBottomMeme mainMeme;
-        private Subject obsSubject;
+        private Subject<string> obsSubject;
 
-        public MemeMaker (Subject obsSubject) {
+        public MemeMaker (Subject<string> obsSubject) {
 
             InitializeComponent ();
 
             this.obsSubject = obsSubject;
+            obsSubject.AddObserver (this);
             mainMeme = new Meme.TopBottomMeme (obsSubject);
 
             using (var fonts = new InstalledFontCollection ()) {
@@ -112,13 +113,8 @@ namespace MemeMaker {
             e.Effect = DragDropEffects.Copy;
         }
 
-        public void Notify (Context notifyingContext) {
+        public void Notify () {
 
-            switch (notifyingContext) {
-                case Context.FilePath:
-                    throw new NotImplementedException ();
-                    break;
-            }
 
         }
     }

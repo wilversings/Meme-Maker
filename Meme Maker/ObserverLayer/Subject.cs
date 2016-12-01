@@ -3,15 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections.ObjectModel;
 
 namespace MemeMaker.ObserverLayer {
-    public class Subject {
+    public class Subject<T> {
 
+        public ObservableCollection<T> WatchableList { get; set; }
         private List<IObserver> observers;
 
-        public Subject () {
+        public Subject (ObservableCollection<T> obsCollection) {
             this.observers = new List<IObserver> ();
+            WatchableList = obsCollection;
         }
+        public Subject () { }
+
         public void AddObserver(IObserver obs) {
             observers.Add (obs);
         }
@@ -19,13 +24,13 @@ namespace MemeMaker.ObserverLayer {
             observers.Remove (obs);
         }
 
-        public void NotifyAll (Context context) {
-            observers.ForEach (o => o.Notify (context));
+        public void NotifyAll () {
+            observers.ForEach (o => o.Notify ());
         }
-        public void NotifyBy (Context context, Func<IObserver, bool> byFn) {
+        public void NotifyBy (Func<IObserver, bool> byFn) {
             observers.ForEach (o => {
                 if (byFn (o)) {
-                    o.Notify (context);
+                    o.Notify ();
                 }
             });
         }

@@ -6,11 +6,8 @@ using System.Threading.Tasks;
 
 namespace MemeMaker.ObserverLayer {
 
-    public enum Context {
-        FilePath
-    }
     public interface IObserver {
-        void Notify (Context notifyingContext);
+        void Notify ();
     }
 
 }

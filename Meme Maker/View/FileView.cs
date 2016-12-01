@@ -11,17 +11,18 @@ using MemeMaker.ObserverLayer;
 
 namespace MemeMaker.Meme {
     public partial class FileView : Form, IObserver {
-        public FileView (Subject obsSubject) {
+
+        private Subject<string> obsSubject;
+
+        public FileView (Subject<string> obsSubject) {
             InitializeComponent ();
+            obsSubject.AddObserver (this);
+            this.obsSubject = obsSubject;
         }
 
-        public void Notify (Context notifyingContext) {
+        public void Notify () {
 
-            switch (notifyingContext) {
-                case Context.FilePath:
-                    throw new NotImplementedException ();
-                    break;
-            }
+            
 
         }
     }

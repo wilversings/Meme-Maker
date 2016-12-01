@@ -11,8 +11,14 @@ namespace MemeMaker.Meme {
 
     class TopBottomMeme : IObserver {
 
-        private Subject obsSubject;
+        private Subject<string> obsSubject;
 
+        public TopBottomMeme (Subject<string> obsSubject) {
+            this.SetDefaultStyle ();
+            this.Image = null;
+            obsSubject.AddObserver (this);
+            this.obsSubject = obsSubject;
+        }
         // Image related fields
         public Image Image { get; private set; }
         protected string filePath;
@@ -32,12 +38,6 @@ namespace MemeMaker.Meme {
             Brush = new SolidBrush (Color.Black);
         }
 
-        public TopBottomMeme (Subject obsSubject) {
-            this.SetDefaultStyle ();
-            this.Image = null;
-            this.obsSubject = obsSubject;
-        }
-       
         public void AppendFilePath (string filePath) {
         }
 
@@ -75,7 +75,7 @@ namespace MemeMaker.Meme {
 
         }
 
-        public void Notify (Context notifyingContext) {
+        public void Notify () {
             throw new NotImplementedException ();
         }
 
