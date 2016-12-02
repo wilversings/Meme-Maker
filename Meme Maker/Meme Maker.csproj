@@ -46,7 +46,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ObserverLayer\ObservableList.cs" />
     <Compile Include="View\MemeMaker.cs">
       <SubType>Form</SubType>
     </Compile>

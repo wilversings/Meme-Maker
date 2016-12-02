@@ -22,7 +22,7 @@ namespace MemeMaker.Meme {
 
         public void Notify () {
 
-            
+
 
         }
     }

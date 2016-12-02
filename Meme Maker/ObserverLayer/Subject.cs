@@ -8,14 +8,13 @@ using System.Collections.ObjectModel;
 namespace MemeMaker.ObserverLayer {
     public class Subject<T> {
 
-        public ObservableCollection<T> WatchableList { get; set; }
         private List<IObserver> observers;
+        public List<string> PathList { get; set; }
 
-        public Subject (ObservableCollection<T> obsCollection) {
+        public Subject () {
             this.observers = new List<IObserver> ();
-            WatchableList = obsCollection;
+            this.PathList = new List<string> ();
         }
-        public Subject () { }
 
         public void AddObserver(IObserver obs) {
             observers.Add (obs);

@@ -9,14 +9,16 @@ using MemeMaker.ObserverLayer;
 
 namespace MemeMaker.Meme {
 
-    class TopBottomMeme : IObserver {
+    class TopBottomMeme {
 
         private Subject<string> obsSubject;
+        // Used for fast searching if the path is new or it was already loaded
+        private Dictionary<string, Bitmap> loadedImages;
 
         public TopBottomMeme (Subject<string> obsSubject) {
+            loadedImages = new Dictionary<string, Bitmap> ();
             this.SetDefaultStyle ();
             this.Image = null;
-            obsSubject.AddObserver (this);
             this.obsSubject = obsSubject;
         }
         // Image related fields
@@ -36,9 +38,6 @@ namespace MemeMaker.Meme {
         private void SetDefaultStyle () {
             Font = new Font ("Arial", 30);
             Brush = new SolidBrush (Color.Black);
-        }
-
-        public void AppendFilePath (string filePath) {
         }
 
         public string FilePath {
@@ -75,8 +74,31 @@ namespace MemeMaker.Meme {
 
         }
 
-        public void Notify () {
-            throw new NotImplementedException ();
+        public void LoadImages () {
+
+            foreach (string possibleNewPath in obsSubject.PathList) {
+                if (!loadedImages.ContainsKey (possibleNewPath)) {
+                    loadedImages[possibleNewPath] = Image.FromFile (possibleNewPath) as Bitmap;
+                }
+            }
+
+            int totalHeight = 0, maxWidth = 0;
+            // Computing the total height and width of the final image
+            foreach (Bitmap image in loadedImages.Values) {
+                totalHeight += image.Height;
+                maxWidth = Math.Max (maxWidth, image.Width);
+            }
+            Bitmap finalImage = new Bitmap (maxWidth, totalHeight);
+            using (Graphics gr = Graphics.FromImage (finalImage)) {
+                int partialSumHeight = 0;
+                foreach (Bitmap image in loadedImages.Values) {
+                    gr.DrawImage (image, 0, partialSumHeight);
+                    partialSumHeight += image.Height;
+                }
+            }
+            this.Image = finalImage;
+            obsSubject.NotifyAll ();
+
         }
 
         private static HashSet<string> acceptedFileFormats = new HashSet<string> (new string[]{

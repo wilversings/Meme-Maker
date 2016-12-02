@@ -91,7 +91,8 @@ namespace MemeMaker {
             // We passed the DragEnter event, and we can assure that the user dropped
             // files, with the right format
             droppedFiles = e.Data.GetData (DataFormats.FileDrop) as string[];
-            mainMeme.FilePath = droppedFiles.First ();
+            obsSubject.PathList.AddRange (droppedFiles);
+            mainMeme.LoadImages ();
             meme.Image = mainMeme.CreateMeme ();
 
         }
@@ -114,8 +115,7 @@ namespace MemeMaker {
         }
 
         public void Notify () {
-
-
+            this.UpdateMeme ();
         }
     }
 }

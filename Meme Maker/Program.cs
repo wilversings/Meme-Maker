@@ -13,9 +13,7 @@ namespace MemeMaker {
         [STAThread]
         static void Main () {
 
-            ObservableList<string> pathList = new ObservableList<string> ();
-            Subject<string> obsSubject = new Subject<string> (pathList);
-            pathList.ObserverSubject = obsSubject;
+            Subject<string> obsSubject = new Subject<string> ();
 
             Application.EnableVisualStyles ();
             Application.SetCompatibleTextRenderingDefault (false);
