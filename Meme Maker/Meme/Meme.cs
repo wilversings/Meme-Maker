@@ -23,7 +23,6 @@ namespace MemeMaker.Meme {
         }
         // Image related fields
         public Image Image { get; private set; }
-        protected string filePath;
 
         public string UpperText { get; set; }
         public string BottomText { get; set; }
@@ -35,20 +34,15 @@ namespace MemeMaker.Meme {
         protected const int textToImageRatio = 4;
         protected const int textMargin = 10;
 
+        public IList<string> PathList {
+            get {
+                return obsSubject.PathList;
+            }
+        }
+
         private void SetDefaultStyle () {
             Font = new Font ("Arial", 30);
             Brush = new SolidBrush (Color.Black);
-        }
-
-        public string FilePath {
-            set {
-                filePath = value;
-                Image = null;
-                Image = Image.FromFile (value) as Bitmap;
-            }
-            get {
-                return filePath;
-            }
         }
 
         public bool HasLoadedPath (string path) {

@@ -22,22 +22,21 @@ namespace MemeMaker.Meme {
         public FileView (Subject<string> obsSubject, TopBottomMeme memeService) {
             InitializeComponent ();
             obsSubject.AddObserver (this);
+            this.MemeService = memeService;
             this.obsSubject = obsSubject;
-            foreach(string path in obsSubject.PathList) {
+            foreach(string path in MemeService.PathList) {
                 this.fileList.Items.Add (path);
             }
             contextMenu = new ContextMenuStrip ();
             contextMenu.Items.Add ("Remove");
             contextMenu.ItemClicked += ContextMenuItemClicked;
-
-            this.MemeService = memeService;
         }
 
         private void ContextMenuItemClicked (object sender, ToolStripItemClickedEventArgs e) {
 
             switch (e.ClickedItem.Text) {
                 case "Remove":
-                    obsSubject.PathList.RemoveAt (selectedMenuIndex);
+                    MemeService.PathList.RemoveAt (selectedMenuIndex);
                     this.MemeService.LoadImages ();
                     break;
             }
@@ -46,10 +45,10 @@ namespace MemeMaker.Meme {
 
         public void Notify () {
 
-            if (obsSubject.PathList.Count > 1) {
+            if (MemeService.PathList.Count > 1) {
                 this.Show ();
                 this.fileList.Items.Clear ();
-                foreach (string path in obsSubject.PathList) {
+                foreach (string path in MemeService.PathList) {
                     this.fileList.Items.Add (path);
                 }
             }

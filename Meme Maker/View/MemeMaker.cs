@@ -49,7 +49,8 @@ namespace MemeMaker {
 
         private void BrowseForImageClick (object sender, EventArgs e) { 
             if (imageOpenDialog.ShowDialog () == DialogResult.OK) {
-                MemeService.FilePath = imageOpenDialog.FileName;
+                MemeService.PathList.Add(imageOpenDialog.FileName);
+                MemeService.LoadImages ();
                 meme.Image = MemeService.CreateMeme ();
             }
         }
@@ -98,7 +99,7 @@ namespace MemeMaker {
             droppedFiles = droppedFiles.Where (f => TopBottomMeme.IsAcceptedFileFormat (f) && !MemeService.HasLoadedPath (f))
                                        .ToArray ();
             foreach (string path in droppedFiles) {
-                obsSubject.PathList.Add (path);
+                MemeService.PathList.Add (path);
             }
             MemeService.LoadImages ();
             meme.Image = MemeService.CreateMeme ();
