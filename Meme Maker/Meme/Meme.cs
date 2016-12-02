@@ -9,13 +9,20 @@ using MemeMaker.ObserverLayer;
 
 namespace MemeMaker.Meme {
 
-    class TopBottomMeme : IObserver {
+    public class TopBottomMeme {
 
-        private Subject obsSubject;
+        private Subject<string> obsSubject;
+        // Used for fast searching if the path is new or it was already loaded
+        private Dictionary<string, Bitmap> loadedImages;
 
+        public TopBottomMeme (Subject<string> obsSubject) {
+            loadedImages = new Dictionary<string, Bitmap> ();
+            this.SetDefaultStyle ();
+            this.Image = null;
+            this.obsSubject = obsSubject;
+        }
         // Image related fields
         public Image Image { get; private set; }
-        protected string filePath;
 
         public string UpperText { get; set; }
         public string BottomText { get; set; }
@@ -27,29 +34,19 @@ namespace MemeMaker.Meme {
         protected const int textToImageRatio = 4;
         protected const int textMargin = 10;
 
+        public IList<string> PathList {
+            get {
+                return obsSubject.PathList;
+            }
+        }
+
         private void SetDefaultStyle () {
             Font = new Font ("Arial", 30);
             Brush = new SolidBrush (Color.Black);
         }
 
-        public TopBottomMeme (Subject obsSubject) {
-            this.SetDefaultStyle ();
-            this.Image = null;
-            this.obsSubject = obsSubject;
-        }
-       
-        public void AppendFilePath (string filePath) {
-        }
-
-        public string FilePath {
-            set {
-                filePath = value;
-                Image = null;
-                Image = Image.FromFile (value) as Bitmap;
-            }
-            get {
-                return filePath;
-            }
+        public bool HasLoadedPath (string path) {
+            return loadedImages.ContainsKey (path);
         }
 
         public virtual Bitmap CreateMeme () {
@@ -75,8 +72,37 @@ namespace MemeMaker.Meme {
 
         }
 
-        public void Notify (Context notifyingContext) {
-            throw new NotImplementedException ();
+        public void LoadImages () {
+
+            foreach (string possibleNewPath in obsSubject.PathList) {
+                if (!loadedImages.ContainsKey (possibleNewPath)) {
+                    loadedImages[possibleNewPath] = Image.FromFile (possibleNewPath) as Bitmap;
+                }
+            }
+
+            foreach (string oldPath in loadedImages.Keys.ToList()) {
+                if (!obsSubject.PathList.Contains(oldPath)) {
+                    loadedImages.Remove (oldPath);
+                }
+            }
+
+            int totalHeight = 0, maxWidth = 0;
+            // Computing the total height and width of the final image
+            foreach (Bitmap image in loadedImages.Values) {
+                totalHeight += image.Height;
+                maxWidth = Math.Max (maxWidth, image.Width);
+            }
+            Bitmap finalImage = new Bitmap (maxWidth, totalHeight);
+            using (Graphics gr = Graphics.FromImage (finalImage)) {
+                int partialSumHeight = 0;
+                foreach (Bitmap image in loadedImages.Values) {
+                    gr.DrawImage (image, 0, partialSumHeight);
+                    partialSumHeight += image.Height;
+                }
+            }
+            this.Image = finalImage;
+            obsSubject.NotifyAll ();
+
         }
 
         private static HashSet<string> acceptedFileFormats = new HashSet<string> (new string[]{

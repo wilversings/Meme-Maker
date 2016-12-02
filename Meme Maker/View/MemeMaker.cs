@@ -14,29 +14,34 @@ using MemeMaker.ObserverLayer;
 namespace MemeMaker {
     public partial class MemeMaker : Form, IObserver {
 
-        private Meme.TopBottomMeme mainMeme;
-        private Subject obsSubject;
+        private TopBottomMeme MemeService { get; set; }
+        private Subject<string> obsSubject;
+        public FileView FileView { get; set; }
 
-        public MemeMaker (Subject obsSubject) {
+        public MemeMaker (Subject<string> obsSubject, TopBottomMeme memeService) {
 
             InitializeComponent ();
 
             this.obsSubject = obsSubject;
-            mainMeme = new Meme.TopBottomMeme (obsSubject);
+            this.obsSubject.AddObserver (this);
+            this.MemeService = memeService;
 
             using (var fonts = new InstalledFontCollection ()) {
                 foreach (var font in fonts.Families) {
                     fontComboBox.Items.Add (font.Name);
                 }
+
             }
+
+            this.FileView = new FileView (obsSubject, MemeService);
 
         }
 
         private void UpdateMeme () {
-            mainMeme.UpperText = upperText.Text;
-            mainMeme.BottomText = bottomText.Text;
+            MemeService.UpperText = upperText.Text;
+            MemeService.BottomText = bottomText.Text;
 
-            meme.Image = mainMeme.CreateMeme ();
+            meme.Image = MemeService.CreateMeme ();
         }
         private void UpdateMeme (object sender, EventArgs e) {
             UpdateMeme ();
@@ -44,8 +49,9 @@ namespace MemeMaker {
 
         private void BrowseForImageClick (object sender, EventArgs e) { 
             if (imageOpenDialog.ShowDialog () == DialogResult.OK) {
-                mainMeme.FilePath = imageOpenDialog.FileName;
-                meme.Image = mainMeme.CreateMeme ();
+                MemeService.PathList.Add(imageOpenDialog.FileName);
+                MemeService.LoadImages ();
+                meme.Image = MemeService.CreateMeme ();
             }
         }
 
@@ -57,8 +63,8 @@ namespace MemeMaker {
                 (italicCheckBox.Checked ? FontStyle.Italic : FontStyle.Regular)
             );
 
-            mainMeme.Font = newFont;
-            meme.Image = mainMeme.CreateMeme ();
+            MemeService.Font = newFont;
+            meme.Image = MemeService.CreateMeme ();
         }
 
         private void SaveImage (object sender, EventArgs e) {
@@ -73,8 +79,8 @@ namespace MemeMaker {
 
         private void ChangeColor (object sender, EventArgs e) {
             textColorDialog.ShowDialog ();
-            mainMeme.Brush = new SolidBrush (textColorDialog.Color);
-            meme.Image = mainMeme.CreateMeme ();
+            MemeService.Brush = new SolidBrush (textColorDialog.Color);
+            meme.Image = MemeService.CreateMeme ();
         }
 
         private void MemeMakerKeyDown (object sender, KeyEventArgs e) {
@@ -90,8 +96,13 @@ namespace MemeMaker {
             // We passed the DragEnter event, and we can assure that the user dropped
             // files, with the right format
             droppedFiles = e.Data.GetData (DataFormats.FileDrop) as string[];
-            mainMeme.FilePath = droppedFiles.First ();
-            meme.Image = mainMeme.CreateMeme ();
+            droppedFiles = droppedFiles.Where (f => TopBottomMeme.IsAcceptedFileFormat (f) && !MemeService.HasLoadedPath (f))
+                                       .ToArray ();
+            foreach (string path in droppedFiles) {
+                MemeService.PathList.Add (path);
+            }
+            MemeService.LoadImages ();
+            meme.Image = MemeService.CreateMeme ();
 
         }
         private void MemeMakerDragEnter (object sender, DragEventArgs e) {
@@ -104,22 +115,17 @@ namespace MemeMaker {
                 return;
             }
             // Checking the file formats
-            foreach (string path in droppedFiles) {
-                if (!TopBottomMeme.IsAcceptedFileFormat(path)) {
-                    return;
-                }
+
+            droppedFiles = droppedFiles.Where (f => TopBottomMeme.IsAcceptedFileFormat(f) && !MemeService.HasLoadedPath (f))
+                                       .ToArray();
+            if (droppedFiles.Length == 0) {
+                return;
             }
             e.Effect = DragDropEffects.Copy;
         }
 
-        public void Notify (Context notifyingContext) {
-
-            switch (notifyingContext) {
-                case Context.FilePath:
-                    throw new NotImplementedException ();
-                    break;
-            }
-
+        public void Notify () {
+            this.UpdateMeme ();
         }
     }
 }
