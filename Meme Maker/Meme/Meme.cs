@@ -9,7 +9,7 @@ using MemeMaker.ObserverLayer;
 
 namespace MemeMaker.Meme {
 
-    class TopBottomMeme {
+    public class TopBottomMeme {
 
         private Subject<string> obsSubject;
         // Used for fast searching if the path is new or it was already loaded
@@ -51,6 +51,10 @@ namespace MemeMaker.Meme {
             }
         }
 
+        public bool HasLoadedPath (string path) {
+            return loadedImages.ContainsKey (path);
+        }
+
         public virtual Bitmap CreateMeme () {
 
             if (Image == null)
@@ -79,6 +83,12 @@ namespace MemeMaker.Meme {
             foreach (string possibleNewPath in obsSubject.PathList) {
                 if (!loadedImages.ContainsKey (possibleNewPath)) {
                     loadedImages[possibleNewPath] = Image.FromFile (possibleNewPath) as Bitmap;
+                }
+            }
+
+            foreach (string oldPath in loadedImages.Keys.ToList()) {
+                if (!obsSubject.PathList.Contains(oldPath)) {
+                    loadedImages.Remove (oldPath);
                 }
             }
 
