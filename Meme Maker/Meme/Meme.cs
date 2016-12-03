@@ -17,11 +17,12 @@ namespace MemeMaker.Meme {
         // Used for fast searching if the path is new or it was already loaded
         private Dictionary<string, Bitmap> loadedImages;
 
-        public TopBottomMeme (Subject<List<UserImage>> obsSubject) {
+        public TopBottomMeme () {
             loadedImages = new Dictionary<string, Bitmap> ();
             this.SetDefaultStyle ();
             this.Image = null;
-            this.UserImageSubject = obsSubject;
+            this.UserImageSubject = new Subject<List<UserImage>> ();
+            this.SelectedUserImageSubject = new Subject<int> ();
         }
         // Image related fields
         public Image Image { get; private set; }

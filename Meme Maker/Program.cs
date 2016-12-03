@@ -14,9 +14,7 @@ namespace MemeMaker {
         /// </summary>
         [STAThread]
         static void Main () {
-
-            var obsSubject = new Subject<List<UserImage>> ();
-            TopBottomMeme memeService = new TopBottomMeme (obsSubject);
+            TopBottomMeme memeService = new TopBottomMeme ();
 
             Application.EnableVisualStyles ();
             Application.SetCompatibleTextRenderingDefault (false);
