@@ -12,18 +12,15 @@ using MemeMaker.ObserverLayer;
 namespace MemeMaker.Meme {
     public partial class FileView : Form, IObserver {
 
-        private Subject<string> obsSubject;
-
         private TopBottomMeme MemeService { get; set; }
 
         private int selectedMenuIndex;
         private readonly ContextMenuStrip contextMenu;
 
-        public FileView (Subject<string> obsSubject, TopBottomMeme memeService) {
+        public FileView (TopBottomMeme memeService) {
             InitializeComponent ();
-            obsSubject.AddObserver (this);
+            memeService.ObserverSubject.AddObserver (this);
             this.MemeService = memeService;
-            this.obsSubject = obsSubject;
             foreach(string path in MemeService.PathList) {
                 this.fileList.Items.Add (path);
             }

@@ -11,7 +11,7 @@ namespace MemeMaker.Meme {
 
     public class TopBottomMeme {
 
-        private Subject<string> obsSubject;
+        public Subject<string> ObserverSubject { get; private set; }
         // Used for fast searching if the path is new or it was already loaded
         private Dictionary<string, Bitmap> loadedImages;
 
@@ -19,7 +19,7 @@ namespace MemeMaker.Meme {
             loadedImages = new Dictionary<string, Bitmap> ();
             this.SetDefaultStyle ();
             this.Image = null;
-            this.obsSubject = obsSubject;
+            this.ObserverSubject = obsSubject;
         }
         // Image related fields
         public Image Image { get; private set; }
@@ -36,7 +36,7 @@ namespace MemeMaker.Meme {
 
         public IList<string> PathList {
             get {
-                return obsSubject.PathList;
+                return ObserverSubject.PathList;
             }
         }
 
@@ -74,14 +74,14 @@ namespace MemeMaker.Meme {
 
         public void LoadImages () {
 
-            foreach (string possibleNewPath in obsSubject.PathList) {
+            foreach (string possibleNewPath in ObserverSubject.PathList) {
                 if (!loadedImages.ContainsKey (possibleNewPath)) {
                     loadedImages[possibleNewPath] = Image.FromFile (possibleNewPath) as Bitmap;
                 }
             }
 
             foreach (string oldPath in loadedImages.Keys.ToList()) {
-                if (!obsSubject.PathList.Contains(oldPath)) {
+                if (!ObserverSubject.PathList.Contains(oldPath)) {
                     loadedImages.Remove (oldPath);
                 }
             }
@@ -101,7 +101,7 @@ namespace MemeMaker.Meme {
                 }
             }
             this.Image = finalImage;
-            obsSubject.NotifyAll ();
+            ObserverSubject.NotifyAll ();
 
         }
 

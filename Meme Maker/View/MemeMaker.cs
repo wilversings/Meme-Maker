@@ -15,15 +15,13 @@ namespace MemeMaker {
     public partial class MemeMaker : Form, IObserver {
 
         private TopBottomMeme MemeService { get; set; }
-        private Subject<string> obsSubject;
         public FileView FileView { get; set; }
 
-        public MemeMaker (Subject<string> obsSubject, TopBottomMeme memeService) {
+        public MemeMaker (TopBottomMeme memeService) {
 
             InitializeComponent ();
 
-            this.obsSubject = obsSubject;
-            this.obsSubject.AddObserver (this);
+            memeService.ObserverSubject.AddObserver (this);
             this.MemeService = memeService;
 
             using (var fonts = new InstalledFontCollection ()) {
@@ -33,7 +31,7 @@ namespace MemeMaker {
 
             }
 
-            this.FileView = new FileView (obsSubject, MemeService);
+            this.FileView = new FileView (MemeService);
 
         }
 

@@ -19,7 +19,7 @@ namespace MemeMaker {
 
             Application.EnableVisualStyles ();
             Application.SetCompatibleTextRenderingDefault (false);
-            Application.Run (new MemeMaker (obsSubject, memeService));
+            Application.Run (new MemeMaker (memeService));
         }
     }
 }
