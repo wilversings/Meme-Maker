@@ -22,7 +22,10 @@ namespace MemeMaker {
 
             InitializeComponent ();
 
-            memeService.ObserverSubject.AddObserver (this);
+            // Registering component to Subject Containers
+            memeService.UserImageSubject.AddObserver (this);
+            memeService.SelectedUserImageSubject.AddObserver (this);
+
             this.MemeService = memeService;
 
             using (var fonts = new InstalledFontCollection ()) {
@@ -123,7 +126,7 @@ namespace MemeMaker {
             e.Effect = DragDropEffects.Copy;
         }
 
-        public void Notify () {
+        public void Notify <WatchableType> (Subject<WatchableType> sender) where WatchableType : new() {
             this.UpdateMeme ();
         }
     }

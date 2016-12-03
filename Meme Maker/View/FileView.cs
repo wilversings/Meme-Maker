@@ -20,7 +20,11 @@ namespace MemeMaker.Meme {
 
         public FileView (TopBottomMeme memeService) {
             InitializeComponent ();
-            memeService.ObserverSubject.AddObserver (this);
+
+            // Registering component to Subject Containers
+            memeService.UserImageSubject.AddObserver (this);
+            memeService.SelectedUserImageSubject.AddObserver (this);
+
             this.MemeService = memeService;
             foreach(UserImage userImage in MemeService.UserImageList) {
                 this.fileList.Items.Add (userImage.Path);
@@ -41,7 +45,7 @@ namespace MemeMaker.Meme {
 
         }
 
-        public void Notify () {
+        public void Notify <WatchableType> (Subject<WatchableType> sender) where WatchableType : new() {
 
             if (MemeService.UserImageList.Count > 1) {
                 this.Show ();
@@ -67,6 +71,11 @@ namespace MemeMaker.Meme {
                 contextMenu.Visible = true;
             }
 
+        }
+
+        private void ItemSelectionChanged (object sender, EventArgs e) {
+            MemeService.SelectedUserImageSubject.WatchableEntity = this.fileList.SelectedIndex;
+            MemeService.SelectedUserImageSubject.NotifyAll ();
         }
     }
 }

@@ -11,15 +11,17 @@ namespace MemeMaker.Meme {
 
     public class TopBottomMeme {
 
-        public Subject<UserImage> ObserverSubject { get; private set; }
+        public Subject<List<UserImage>> UserImageSubject { get; private set; }
+        public Subject<int> SelectedUserImageSubject { get; private set; }
+
         // Used for fast searching if the path is new or it was already loaded
         private Dictionary<string, Bitmap> loadedImages;
 
-        public TopBottomMeme (Subject<UserImage> obsSubject) {
+        public TopBottomMeme (Subject<List<UserImage>> obsSubject) {
             loadedImages = new Dictionary<string, Bitmap> ();
             this.SetDefaultStyle ();
             this.Image = null;
-            this.ObserverSubject = obsSubject;
+            this.UserImageSubject = obsSubject;
         }
         // Image related fields
         public Image Image { get; private set; }
@@ -36,7 +38,7 @@ namespace MemeMaker.Meme {
 
         public IList<UserImage> UserImageList {
             get {
-                return ObserverSubject.EntityList;
+                return UserImageSubject.WatchableEntity;
             }
         }
 
@@ -74,14 +76,14 @@ namespace MemeMaker.Meme {
 
         public void LoadImages () {
 
-            foreach (UserImage possibleNewImage in ObserverSubject.EntityList) {
+            foreach (UserImage possibleNewImage in UserImageSubject.WatchableEntity) {
                 if (!loadedImages.ContainsKey (possibleNewImage.Path)) {
                     loadedImages[possibleNewImage.Path] = Image.FromFile (possibleNewImage.Path) as Bitmap;
                 }
             }
 
             foreach (string oldPath in loadedImages.Keys.ToList()) {
-                if (!ObserverSubject.EntityList.Select(u => u.Path).Contains(oldPath)) {
+                if (!UserImageSubject.WatchableEntity.Select(u => u.Path).Contains(oldPath)) {
                     loadedImages.Remove (oldPath);
                 }
             }
@@ -101,7 +103,7 @@ namespace MemeMaker.Meme {
                 }
             }
             this.Image = finalImage;
-            ObserverSubject.NotifyAll ();
+            UserImageSubject.NotifyAll ();
 
         }
 

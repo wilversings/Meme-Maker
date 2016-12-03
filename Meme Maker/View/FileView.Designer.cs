@@ -35,6 +35,7 @@
             this.fileList.Name = "fileList";
             this.fileList.Size = new System.Drawing.Size(149, 404);
             this.fileList.TabIndex = 1;
+            this.fileList.SelectedIndexChanged += new System.EventHandler(this.ItemSelectionChanged);
             this.fileList.MouseDown += new System.Windows.Forms.MouseEventHandler(this.fileList_MouseDown);
             // 
             // FileView

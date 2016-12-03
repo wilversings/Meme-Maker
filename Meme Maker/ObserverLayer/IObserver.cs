@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace MemeMaker.ObserverLayer {
 
     public interface IObserver {
-        void Notify ();
+        void Notify <WatchableType>(Subject<WatchableType> sender) where WatchableType : new();
     }
 
 }
