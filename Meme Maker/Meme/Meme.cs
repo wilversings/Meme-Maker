@@ -5,17 +5,17 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MemeMaker.ObserverLayer;
+using MemeMaker.Domain;
 
 namespace MemeMaker.Meme {
 
     public class TopBottomMeme {
 
-        public Subject<string> ObserverSubject { get; private set; }
+        public Subject<UserImage> ObserverSubject { get; private set; }
         // Used for fast searching if the path is new or it was already loaded
         private Dictionary<string, Bitmap> loadedImages;
 
-        public TopBottomMeme (Subject<string> obsSubject) {
+        public TopBottomMeme (Subject<UserImage> obsSubject) {
             loadedImages = new Dictionary<string, Bitmap> ();
             this.SetDefaultStyle ();
             this.Image = null;
@@ -34,9 +34,9 @@ namespace MemeMaker.Meme {
         protected const int textToImageRatio = 4;
         protected const int textMargin = 10;
 
-        public IList<string> PathList {
+        public IList<UserImage> UserImageList {
             get {
-                return ObserverSubject.PathList;
+                return ObserverSubject.EntityList;
             }
         }
 
@@ -74,14 +74,14 @@ namespace MemeMaker.Meme {
 
         public void LoadImages () {
 
-            foreach (string possibleNewPath in ObserverSubject.PathList) {
-                if (!loadedImages.ContainsKey (possibleNewPath)) {
-                    loadedImages[possibleNewPath] = Image.FromFile (possibleNewPath) as Bitmap;
+            foreach (UserImage possibleNewImage in ObserverSubject.EntityList) {
+                if (!loadedImages.ContainsKey (possibleNewImage.Path)) {
+                    loadedImages[possibleNewImage.Path] = Image.FromFile (possibleNewImage.Path) as Bitmap;
                 }
             }
 
             foreach (string oldPath in loadedImages.Keys.ToList()) {
-                if (!ObserverSubject.PathList.Contains(oldPath)) {
+                if (!ObserverSubject.EntityList.Select(u => u.Path).Contains(oldPath)) {
                     loadedImages.Remove (oldPath);
                 }
             }

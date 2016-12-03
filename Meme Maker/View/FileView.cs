@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MemeMaker.ObserverLayer;
+using MemeMaker.Domain;
 
 namespace MemeMaker.Meme {
     public partial class FileView : Form, IObserver {
@@ -21,8 +22,8 @@ namespace MemeMaker.Meme {
             InitializeComponent ();
             memeService.ObserverSubject.AddObserver (this);
             this.MemeService = memeService;
-            foreach(string path in MemeService.PathList) {
-                this.fileList.Items.Add (path);
+            foreach(UserImage userImage in MemeService.UserImageList) {
+                this.fileList.Items.Add (userImage.Path);
             }
             contextMenu = new ContextMenuStrip ();
             contextMenu.Items.Add ("Remove");
@@ -33,7 +34,7 @@ namespace MemeMaker.Meme {
 
             switch (e.ClickedItem.Text) {
                 case "Remove":
-                    MemeService.PathList.RemoveAt (selectedMenuIndex);
+                    MemeService.UserImageList.RemoveAt (selectedMenuIndex);
                     this.MemeService.LoadImages ();
                     break;
             }
@@ -42,11 +43,11 @@ namespace MemeMaker.Meme {
 
         public void Notify () {
 
-            if (MemeService.PathList.Count > 1) {
+            if (MemeService.UserImageList.Count > 1) {
                 this.Show ();
                 this.fileList.Items.Clear ();
-                foreach (string path in MemeService.PathList) {
-                    this.fileList.Items.Add (path);
+                foreach (UserImage userImage in MemeService.UserImageList) {
+                    this.fileList.Items.Add (userImage.Path);
                 }
             }
             else {
