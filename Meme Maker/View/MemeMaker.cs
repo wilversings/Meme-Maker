@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using MemeMaker.Meme;
 using System.Drawing.Text;
 using MemeMaker.ObserverLayer;
+using MemeMaker.Domain;
 
 namespace MemeMaker {
     public partial class MemeMaker : Form, IObserver {
@@ -21,7 +22,10 @@ namespace MemeMaker {
 
             InitializeComponent ();
 
-            memeService.ObserverSubject.AddObserver (this);
+            // Registering component to Subject Containers
+            memeService.UserImageSubject.AddObserver (this);
+            memeService.SelectedUserImageSubject.AddObserver (this);
+
             this.MemeService = memeService;
 
             using (var fonts = new InstalledFontCollection ()) {
@@ -47,7 +51,7 @@ namespace MemeMaker {
 
         private void BrowseForImageClick (object sender, EventArgs e) { 
             if (imageOpenDialog.ShowDialog () == DialogResult.OK) {
-                MemeService.PathList.Add(imageOpenDialog.FileName);
+                MemeService.UserImageList.Add (new UserImage (imageOpenDialog.FileName));
                 MemeService.LoadImages ();
                 meme.Image = MemeService.CreateMeme ();
             }
@@ -97,7 +101,7 @@ namespace MemeMaker {
             droppedFiles = droppedFiles.Where (f => TopBottomMeme.IsAcceptedFileFormat (f) && !MemeService.HasLoadedPath (f))
                                        .ToArray ();
             foreach (string path in droppedFiles) {
-                MemeService.PathList.Add (path);
+                MemeService.UserImageList.Add (new UserImage(path));
             }
             MemeService.LoadImages ();
             meme.Image = MemeService.CreateMeme ();
@@ -122,7 +126,7 @@ namespace MemeMaker {
             e.Effect = DragDropEffects.Copy;
         }
 
-        public void Notify () {
+        public void Notify <WatchableType> (Subject<WatchableType> sender) where WatchableType : new() {
             this.UpdateMeme ();
         }
     }

@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 
 namespace MemeMaker.ObserverLayer {
-    public class Subject<T> {
+    public class Subject<T> where T : new() {
 
         private List<IObserver> observers;
-        public IList<T> PathList { get; set; }
+        public T WatchableEntity { get; set; }
 
         public Subject () {
             this.observers = new List<IObserver> ();
-            this.PathList = new List<T> ();
+            this.WatchableEntity = new T();
         }
 
         public void AddObserver(IObserver obs) {
@@ -24,12 +24,12 @@ namespace MemeMaker.ObserverLayer {
         }
 
         public void NotifyAll () {
-            observers.ForEach (o => o.Notify ());
+            observers.ForEach (o => o.Notify <T>(this));
         }
         public void NotifyBy (Func<IObserver, bool> byFn) {
             observers.ForEach (o => {
                 if (byFn (o)) {
-                    o.Notify ();
+                    o.Notify <T>(this);
                 }
             });
         }

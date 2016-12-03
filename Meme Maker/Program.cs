@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MemeMaker.ObserverLayer;
 using MemeMaker.Meme;
+using MemeMaker.Domain;
 
 namespace MemeMaker {
     static class Program {
@@ -14,7 +15,7 @@ namespace MemeMaker {
         [STAThread]
         static void Main () {
 
-            Subject<string> obsSubject = new Subject<string> ();
+            var obsSubject = new Subject<List<UserImage>> ();
             TopBottomMeme memeService = new TopBottomMeme (obsSubject);
 
             Application.EnableVisualStyles ();
