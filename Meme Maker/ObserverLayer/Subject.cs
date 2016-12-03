@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 
 namespace MemeMaker.ObserverLayer {
-    public class Subject<T> where T : new() {
+    public class Subject<T> {
 
         private List<IObserver> observers;
         public T WatchableEntity { get; set; }
 
-        public Subject () {
+        public Subject (T watchableEntity) {
             this.observers = new List<IObserver> ();
-            this.WatchableEntity = new T();
+            this.WatchableEntity = watchableEntity;
         }
 
         public void AddObserver(IObserver obs) {

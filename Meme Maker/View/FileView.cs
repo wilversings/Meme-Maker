@@ -45,7 +45,7 @@ namespace MemeMaker.Meme {
 
         }
 
-        public void Notify <WatchableType> (Subject<WatchableType> sender) where WatchableType : new() {
+        public void Notify <WatchableType> (Subject<WatchableType> sender) {
 
             if (MemeService.UserImageList.Count > 1) {
                 this.Show ();

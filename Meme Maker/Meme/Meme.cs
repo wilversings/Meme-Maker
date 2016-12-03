@@ -21,8 +21,8 @@ namespace MemeMaker.Meme {
             loadedImages = new Dictionary<string, Bitmap> ();
             this.SetDefaultStyle ();
             this.Image = null;
-            this.UserImageSubject = new Subject<List<UserImage>> ();
-            this.SelectedUserImageSubject = new Subject<int> ();
+            this.UserImageSubject = new Subject<List<UserImage>> (new List<UserImage>());
+            this.SelectedUserImageSubject = new Subject<int> (new int());
         }
         // Image related fields
         public Image Image { get; private set; }

@@ -126,7 +126,7 @@ namespace MemeMaker {
             e.Effect = DragDropEffects.Copy;
         }
 
-        public void Notify <WatchableType> (Subject<WatchableType> sender) where WatchableType : new() {
+        public void Notify <WatchableType> (Subject<WatchableType> sender) {
             this.UpdateMeme ();
         }
     }
