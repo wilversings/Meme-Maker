@@ -7,6 +7,12 @@ using System.Threading.Tasks;
 namespace MemeMaker.Domain {
     public class UserImage {
 
+        public UserImage () {
+            this.Path = "";
+            this.UpperText = "";
+            this.BottomText = "";
+            this.Visible = true;
+        }
         public UserImage (string Path) {
             this.Path = Path;
             this.UpperText = "";
