@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Domain\UserImage.cs" />
+    <Compile Include="UnifiedViewController.cs" />
     <Compile Include="View\MemeMaker.cs">
       <SubType>Form</SubType>
     </Compile>

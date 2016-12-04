@@ -1,19 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="MemeMaker.Meme.TopBottomMeme" Collapsed="true">
-    <Position X="3.5" Y="2.25" Width="1.5" />
+    <Position X="5.25" Y="3.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>ACAAAAABCAAAAAIAAAAAAAAIAAAAARAEAAABCAAiIAA=</HashCode>
+      <HashCode>ACAAAAAFCAAAAAIAAAAAAABIAAAAABAEAAABCAAiIAA=</HashCode>
       <FileName>Meme\Meme.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="ObserverSubject" />
+      <Property Name="UserImageSubject" />
+      <Property Name="SelectedUserImageSubject" />
     </ShowAsAssociation>
   </Class>
   <Class Name="MemeMaker.Meme.FileView" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="3.5" Y="3.5" Width="1.5" />
+    <Position X="7.5" Y="3.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAACAAAACBAAAAAEACAAAACAAAAAABAgAAAAACAAIA=</HashCode>
+      <HashCode>AAAACAAAACBAAAAAEACAAAAGAAAAAABAgAAAAACAAIA=</HashCode>
       <FileName>View\FileView.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -22,14 +23,14 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="MemeMaker.ObserverLayer.Subject&lt;T&gt;" Collapsed="true">
-    <Position X="5.75" Y="2.25" Width="1.5" />
+    <Position X="5.25" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAIAAAAAAhAAAAAAAAAAAAAAAAIAAAAAAAAgAACAAA=</HashCode>
+      <HashCode>AAAIgAAAAAhAAAAAAAAAAAAAAAAIAAAAAAAAAAACAAA=</HashCode>
       <FileName>ObserverLayer\Subject.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="MemeMaker.MemeMaker" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="5.75" Y="1.25" Width="1.5" />
+    <Position X="3" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>BSAtAgkAACAEAhAAEICAAASiGIAaAABQAiAAAAAgAhA=</HashCode>
       <FileName>View\MemeMaker.cs</FileName>
@@ -40,14 +41,14 @@
     <Lollipop Position="0.679" Collapsed="true" />
   </Class>
   <Class Name="MemeMaker.Domain.UserImage" Collapsed="true">
-    <Position X="5.75" Y="4.25" Width="1.5" />
+    <Position X="5.75" Y="4.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAACAAAAAIAAAAAAAAAAAAAAAAIAAAAAAAAIAA=</HashCode>
       <FileName>Domain\UserImage.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Interface Name="MemeMaker.ObserverLayer.IObserver" Collapsed="true">
-    <Position X="5.75" Y="3.25" Width="1.5" />
+    <Position X="4" Y="4.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAA=</HashCode>
       <FileName>ObserverLayer\IObserver.cs</FileName>

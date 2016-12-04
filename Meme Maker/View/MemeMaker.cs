@@ -64,7 +64,7 @@ namespace MemeMaker {
                 boldCheckBox.Checked ? FontStyle.Bold : FontStyle.Regular |
                 (italicCheckBox.Checked ? FontStyle.Italic : FontStyle.Regular)
             );
-
+                
             MemeService.Font = newFont;
             meme.Image = MemeService.CreateMeme ();
         }
@@ -94,40 +94,18 @@ namespace MemeMaker {
         }
 
         private void MemeMakerDragDrop (object sender, DragEventArgs e) {
-            string[] droppedFiles;
-            // We passed the DragEnter event, and we can assure that the user dropped
-            // files, with the right format
-            droppedFiles = e.Data.GetData (DataFormats.FileDrop) as string[];
-            droppedFiles = droppedFiles.Where (f => TopBottomMeme.IsAcceptedFileFormat (f) && !MemeService.HasLoadedPath (f))
-                                       .ToArray ();
-            foreach (string path in droppedFiles) {
-                MemeService.UserImageList.Add (new UserImage(path));
-            }
-            MemeService.LoadImages ();
-            meme.Image = MemeService.CreateMeme ();
-
+            UnifiedViewController.HandleDragDrop (sender, e, MemeService);
         }
         private void MemeMakerDragEnter (object sender, DragEventArgs e) {
-            string[] droppedFiles;
-            try {
-                droppedFiles = e.Data.GetData (DataFormats.FileDrop) as string[];
-            }
-            catch (System.ArgumentNullException ex) {
-                // Handling dragging anything other than files
-                return;
-            }
-            // Checking the file formats
-
-            droppedFiles = droppedFiles.Where (f => TopBottomMeme.IsAcceptedFileFormat(f) && !MemeService.HasLoadedPath (f))
-                                       .ToArray();
-            if (droppedFiles.Length == 0) {
-                return;
-            }
-            e.Effect = DragDropEffects.Copy;
+            UnifiedViewController.HandleDragEnter (sender, e, MemeService);
         }
 
         public void Notify <WatchableType> (Subject<WatchableType> sender) {
-            this.UpdateMeme ();
+            switch (sender.Name) {
+                case "UserImage":
+                    this.UpdateMeme ();
+                    break;
+            }
         }
     }
 }

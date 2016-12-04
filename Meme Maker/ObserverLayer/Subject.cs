@@ -9,11 +9,13 @@ namespace MemeMaker.ObserverLayer {
     public class Subject<T> {
 
         private List<IObserver> observers;
+        public string Name { get; set; }
         public T WatchableEntity { get; set; }
 
-        public Subject (T watchableEntity) {
+        public Subject (T watchableEntity, string name) {
             this.observers = new List<IObserver> ();
             this.WatchableEntity = watchableEntity;
+            this.Name = name;
         }
 
         public void AddObserver(IObserver obs) {
