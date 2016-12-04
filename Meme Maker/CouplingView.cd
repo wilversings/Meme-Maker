@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="MemeMaker.Meme.TopBottomMeme" Collapsed="true">
+  <Class Name="MemeMaker.Meme.MemeService" Collapsed="true">
     <Position X="5.25" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>ACAAAAAFCAAAAAIAAAAAAABIAAAAABAEAAABCAAiIAA=</HashCode>
-      <FileName>Meme\Meme.cs</FileName>
+      <FileName>ServiceLayer\MemeService.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="UserImageSubject" />
@@ -25,7 +25,7 @@
   <Class Name="MemeMaker.ObserverLayer.Subject&lt;T&gt;" Collapsed="true">
     <Position X="5.25" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAIgAAAAAhAAAAAAAAAAAAAAAAIAAAAAAAAAAACAAA=</HashCode>
+      <HashCode>AAAIgAAAAAhAAAAAAAAAAAQAAAAIAAAAAAAAAAACAAA=</HashCode>
       <FileName>ObserverLayer\Subject.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -44,7 +44,7 @@
     <Position X="5.75" Y="4.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAACAAAAAIAAAAAAAAAAAAAAAAIAAAAAAAAIAA=</HashCode>
-      <FileName>Domain\UserImage.cs</FileName>
+      <FileName>DomainLayer\UserImage.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Interface Name="MemeMaker.ObserverLayer.IObserver" Collapsed="true">

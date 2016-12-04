@@ -14,7 +14,7 @@ namespace MemeMaker {
         /// </summary>
         [STAThread]
         static void Main () {
-            TopBottomMeme memeService = new TopBottomMeme ();
+            MemeService memeService = new MemeService ();
 
             Application.EnableVisualStyles ();
             Application.SetCompatibleTextRenderingDefault (false);

@@ -9,7 +9,7 @@ using MemeMaker.Domain;
 
 namespace MemeMaker.Meme {
 
-    public class TopBottomMeme {
+    public class MemeService {
 
         public Subject<List<UserImage>> UserImageSubject { get; private set; }
         public Subject<int> SelectedUserImageSubject { get; private set; }
@@ -17,7 +17,7 @@ namespace MemeMaker.Meme {
         // Used for fast searching if the path is new or it was already loaded
         private Dictionary<string, Bitmap> loadedImages;
 
-        public TopBottomMeme () {
+        public MemeService () {
             loadedImages = new Dictionary<string, Bitmap> ();
             this.SetDefaultStyle ();
             this.Image = null;

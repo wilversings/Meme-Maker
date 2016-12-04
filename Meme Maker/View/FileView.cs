@@ -13,12 +13,12 @@ using MemeMaker.Domain;
 namespace MemeMaker.Meme {
     public partial class FileView : Form, IObserver {
 
-        private TopBottomMeme MemeService { get; set; }
+        private MemeService MemeService { get; set; }
 
         private int selectedMenuIndex;
         private readonly ContextMenuStrip contextMenu;
 
-        public FileView (TopBottomMeme memeService) {
+        public FileView (MemeService memeService) {
             InitializeComponent ();
 
             // Registering component to Subject Containers

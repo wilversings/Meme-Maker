@@ -46,7 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Domain\UserImage.cs" />
+    <Compile Include="DomainLayer\UserImage.cs" />
     <Compile Include="UnifiedViewController.cs" />
     <Compile Include="View\MemeMaker.cs">
       <SubType>Form</SubType>
@@ -60,7 +60,7 @@
     <Compile Include="View\FileView.Designer.cs">
       <DependentUpon>FileView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Meme\Meme.cs" />
+    <Compile Include="ServiceLayer\MemeService.cs" />
     <Compile Include="ObserverLayer\IObserver.cs" />
     <Compile Include="ObserverLayer\Subject.cs" />
     <Compile Include="Program.cs" />

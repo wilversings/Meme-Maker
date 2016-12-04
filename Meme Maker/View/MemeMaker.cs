@@ -15,10 +15,10 @@ using MemeMaker.Domain;
 namespace MemeMaker {
     public partial class MemeMaker : Form, IObserver {
 
-        private TopBottomMeme MemeService { get; set; }
+        private MemeService MemeService { get; set; }
         public FileView FileView { get; set; }
 
-        public MemeMaker (TopBottomMeme memeService) {
+        public MemeMaker (MemeService memeService) {
 
             InitializeComponent ();
 
