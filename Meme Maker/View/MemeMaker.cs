@@ -32,7 +32,6 @@ namespace MemeMaker {
                 foreach (var font in fonts.Families) {
                     fontComboBox.Items.Add (font.Name);
                 }
-
             }
 
             this.FileView = new FileView (MemeService);
