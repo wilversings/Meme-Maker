@@ -47,6 +47,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DomainLayer\UserImage.cs" />
+    <Compile Include="UIComponents\PanZoomPictureBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="View\UnifiedViewController.cs" />
     <Compile Include="View\MemeMaker.cs">
       <SubType>Form</SubType>
