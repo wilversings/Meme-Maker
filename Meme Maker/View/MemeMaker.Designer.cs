@@ -30,7 +30,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.meme = new System.Windows.Forms.PictureBox();
             this.button1 = new System.Windows.Forms.Button();
             this.imageOpenDialog = new System.Windows.Forms.OpenFileDialog();
             this.fontComboBox = new System.Windows.Forms.ComboBox();
@@ -45,13 +44,14 @@
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.appendToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.meme = new Meme_Maker.UIComponents.PanZoomPictureBox();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.meme)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.fontSizeNumeric)).BeginInit();
             this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.meme)).BeginInit();
             this.SuspendLayout();
             // 
             // imageList1
@@ -105,16 +105,6 @@
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Meme";
-            // 
-            // meme
-            // 
-            this.meme.ImageLocation = "";
-            this.meme.Location = new System.Drawing.Point(6, 35);
-            this.meme.Name = "meme";
-            this.meme.Size = new System.Drawing.Size(400, 270);
-            this.meme.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.meme.TabIndex = 0;
-            this.meme.TabStop = false;
             // 
             // button1
             // 
@@ -232,33 +222,41 @@
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.BrowseForImageClick);
             // 
             // appendToolStripMenuItem
             // 
             this.appendToolStripMenuItem.Name = "appendToolStripMenuItem";
-            this.appendToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.appendToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
             this.appendToolStripMenuItem.Text = "Append";
-            // 
-            // closeToolStripMenuItem
-            // 
-            this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            this.closeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.closeToolStripMenuItem.Text = "Close";
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(118, 6);
             // 
             // saveAsToolStripMenuItem
             // 
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
             this.saveAsToolStripMenuItem.Text = "Save as...";
             this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.SaveImage);
+            // 
+            // closeToolStripMenuItem
+            // 
+            this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
+            this.closeToolStripMenuItem.Text = "Close";
+            // 
+            // meme
+            // 
+            this.meme.Location = new System.Drawing.Point(8, 19);
+            this.meme.Name = "meme";
+            this.meme.Size = new System.Drawing.Size(394, 267);
+            this.meme.TabIndex = 0;
+            this.meme.TabStop = false;
             // 
             // MemeMaker
             // 
@@ -289,10 +287,10 @@
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.MemeMakerDragEnter);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MemeMakerKeyDown);
             this.groupBox1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.meme)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.fontSizeNumeric)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.meme)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -305,7 +303,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.PictureBox meme;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.OpenFileDialog imageOpenDialog;
         private System.Windows.Forms.ComboBox fontComboBox;
@@ -323,6 +320,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveAsToolStripMenuItem;
+        private Meme_Maker.UIComponents.PanZoomPictureBox meme;
     }
 }
 
