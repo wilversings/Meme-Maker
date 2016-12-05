@@ -1,18 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Meme_Maker.UIComponents {
-    class PanZoomPictureBox : PictureBox {
+namespace MemeMaker.UIComponents {
+    public class PanZoomPictureBox : PictureBox {
 
         private float scale = 1F;
         private int targetX = 0;
         private int targetY = 0;
 
-        public PanZoomPictureBox () : base() {
+        private const float zoomSensitivity = 0.113F;
+
+        public PanZoomPictureBox () : base () {
 
             MouseWheel += PanZoomMouseWheel;
             MouseDown += PanZoomLeftMouseDown;
@@ -42,14 +45,13 @@ namespace Meme_Maker.UIComponents {
             }
 
         }
-
         private void PanZoomMouseWheel (object sender, MouseEventArgs e) {
 
             float oldScale = this.scale;
             if (e.Delta > 0) {
-                this.scale += 0.1F;
+                this.scale += zoomSensitivity;
             } else if (e.Delta < 0) {
-                this.scale -= 0.1F;
+                this.scale -= zoomSensitivity;
             }
 
             int oldX = (int)(e.X / oldScale);
@@ -58,16 +60,22 @@ namespace Meme_Maker.UIComponents {
             int newX = (int)(e.X / this.scale);
             int newY = (int)(e.Y / this.scale);
 
-            this.targetX = newX - oldX + this.targetX;
-            this.targetY = newY - oldY + this.targetY;
-            
+            this.targetX += newX - oldX;
+            this.targetY += newY - oldY;
+
             this.Invalidate ();
+
         }
 
         private void PanZoomPaint (object sender, PaintEventArgs e) {
-            e.Graphics.ScaleTransform (this.scale, this.scale);
-            if (Image != null)
-            e.Graphics.DrawImage (Image, this.targetX, this.targetY);
+            if (Image != null) {
+                e.Graphics.ScaleTransform (this.scale, this.scale);
+                e.Graphics.Clear (System.Drawing.Color.LightGray);
+                e.Graphics.DrawImage (Image, this.targetX, this.targetY);
+            }
+            else {
+                e.Graphics.Clear (System.Drawing.Color.LightGray);
+            }
         }
 
     }

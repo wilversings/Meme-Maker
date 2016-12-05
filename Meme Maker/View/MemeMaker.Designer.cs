@@ -47,7 +47,7 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.meme = new Meme_Maker.UIComponents.PanZoomPictureBox();
+            this.meme = new UIComponents.PanZoomPictureBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fontSizeNumeric)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -320,7 +320,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveAsToolStripMenuItem;
-        private Meme_Maker.UIComponents.PanZoomPictureBox meme;
+        private UIComponents.PanZoomPictureBox meme;
     }
 }
 
