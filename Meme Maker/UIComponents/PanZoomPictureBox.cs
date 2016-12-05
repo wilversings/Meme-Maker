@@ -8,15 +8,38 @@ using System.Windows.Forms;
 namespace Meme_Maker.UIComponents {
     class PanZoomPictureBox : PictureBox {
 
-        float scale = 0.05F;
-        int targetX = 0;
-        int targetY = 0;
+        private float scale = 1F;
+        private int targetX = 0;
+        private int targetY = 0;
 
         public PanZoomPictureBox () : base() {
 
             MouseWheel += PanZoomMouseWheel;
-
+            MouseDown += PanZoomLeftMouseDown;
+            MouseMove += PanZoomMouseMove;
             Paint += PanZoomPaint;
+
+        }
+
+        private int xWhenDown;
+        private int yWhenDown;
+        private void PanZoomMouseMove (object sender, MouseEventArgs e) {
+
+            if (e.Button == MouseButtons.Left) {
+                this.targetX = (int)((e.X - xWhenDown) / this.scale) + this.targetX;
+                this.targetY = (int)((e.Y - yWhenDown) / this.scale) + this.targetY;
+                xWhenDown = e.X;
+                yWhenDown = e.Y;
+                this.Invalidate ();
+            }
+
+        }
+        private void PanZoomLeftMouseDown (object sender, MouseEventArgs e) {
+
+            if (e.Button == MouseButtons.Left) {
+                xWhenDown = e.X;
+                yWhenDown = e.Y;
+            }
 
         }
 
