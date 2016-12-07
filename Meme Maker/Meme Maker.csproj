@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="DomainLayer\UserImage.cs" />
     <Compile Include="ObserverLayer\EventArgs\ObserverEventArgs.cs" />
+    <Compile Include="ObserverLayer\EventArgs\SelectionChangeEventArgs.cs" />
     <Compile Include="ObserverLayer\ObserverHandler.cs" />
     <Compile Include="UIComponents\PanZoomPictureBox.cs">
       <SubType>Component</SubType>
@@ -66,7 +67,6 @@
       <DependentUpon>FileView.cs</DependentUpon>
     </Compile>
     <Compile Include="ServiceLayer\MemeService.cs" />
-    <Compile Include="ObserverLayer\IObserver.cs" />
     <Compile Include="ObserverLayer\Subject.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

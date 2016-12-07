@@ -9,9 +9,10 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MemeMaker.ObserverLayer;
 using MemeMaker.Domain;
+using MemeMaker.ObserverLayer.EventArgs;
 
 namespace MemeMaker.Meme {
-    public partial class FileView : Form, IObserver {
+    public partial class FileView : Form {
 
         private MemeService MemeService { get; set; }
 
@@ -45,7 +46,7 @@ namespace MemeMaker.Meme {
 
         }
 
-        public void Notify <WatchableType> (Subject<WatchableType> sender) {
+        public void FileListChanged (object sender, ObserverEventArgs e) {
 
             if (MemeService.UserImageList.Count > 1) {
                 this.Show ();
@@ -60,7 +61,7 @@ namespace MemeMaker.Meme {
 
         }
 
-        private void fileList_MouseDown (object sender, MouseEventArgs e) {
+        private void FileListMouseDown (object sender, MouseEventArgs e) {
             if (e.Button != MouseButtons.Right)
                 return;
 
@@ -75,7 +76,11 @@ namespace MemeMaker.Meme {
 
         private void ItemSelectionChanged (object sender, EventArgs e) {
             MemeService.SelectedUserImageSubject.WatchableEntity = this.fileList.SelectedIndex;
-            MemeService.SelectedUserImageSubject.NotifyAll ();
+            MemeService.SelectedUserImageSubject.NotifyAll (new ObserverLayer.EventArgs.SelectionChangeEventArgs {
+                OldIndex = 3, //faked
+                NewIndex = fileList.SelectedIndex,
+                NewPath = fileList.SelectedItem.ToString()
+            });
         }
     }
 }

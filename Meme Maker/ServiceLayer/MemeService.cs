@@ -6,13 +6,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MemeMaker.Domain;
+using MemeMaker.ObserverLayer.EventArgs;
 
 namespace MemeMaker.Meme {
 
     public class MemeService {
 
-        public Subject<List<UserImage>> UserImageSubject { get; private set; }
-        public Subject<int> SelectedUserImageSubject { get; private set; }
+        public Subject<List<UserImage>, ObserverEventArgs> UserImageSubject { get; private set; }
+        public Subject<int, SelectionChangeEventArgs> SelectedUserImageSubject { get; private set; }
 
         // Used for fast searching if the path is new or it was already loaded
         private Dictionary<string, Bitmap> loadedImages;
@@ -21,8 +22,8 @@ namespace MemeMaker.Meme {
             loadedImages = new Dictionary<string, Bitmap> ();
             this.SetDefaultStyle ();
             this.Image = null;
-            this.UserImageSubject = new Subject<List<UserImage>> (new List<UserImage>(), "UserImage");
-            this.SelectedUserImageSubject = new Subject<int> (new int(), "SelectedUserImage");
+            this.UserImageSubject = new Subject<List<UserImage>, ObserverEventArgs> (new List<UserImage>(), "FileListChanged");
+            this.SelectedUserImageSubject = new Subject<int, SelectionChangeEventArgs> (new int(), "whatever");
         }
         // Image related fields
         public Image Image { get; private set; }
@@ -104,7 +105,7 @@ namespace MemeMaker.Meme {
                 }
             }
             this.Image = finalImage;
-            UserImageSubject.NotifyAll ();
+            UserImageSubject.NotifyAll (new ObserverEventArgs());
 
         }
 

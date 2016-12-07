@@ -5,6 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace MemeMaker.ObserverLayer.EventArgs {
-    public abstract class ObserverEventArgs {
+    public class ObserverEventArgs {
     }
 }

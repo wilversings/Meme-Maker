@@ -11,9 +11,10 @@ using MemeMaker.Meme;
 using System.Drawing.Text;
 using MemeMaker.ObserverLayer;
 using MemeMaker.Domain;
+using MemeMaker.ObserverLayer.EventArgs;
 
 namespace MemeMaker {
-    public partial class MemeMaker : Form, IObserver {
+    public partial class MemeMaker : Form {
 
         private MemeService MemeService { get; set; }
         public FileView FileView { get; set; }
@@ -99,12 +100,8 @@ namespace MemeMaker {
             UnifiedViewController.HandleDragEnter (sender, e, MemeService);
         }
 
-        public void Notify <WatchableType> (Subject<WatchableType> sender) {
-            switch (sender.Name) {
-                case "UserImage":
-                    this.UpdateMeme ();
-                    break;
-            }
+        public void FileListChanged (object sender, ObserverEventArgs e) {
+             this.UpdateMeme ();
         }
     }
 }
