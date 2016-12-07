@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
+using MemeMaker.ObserverLayer.EventArgs;
 
 namespace MemeMaker.ObserverLayer {
     public class Subject<T> {
@@ -19,6 +20,7 @@ namespace MemeMaker.ObserverLayer {
         }
 
         public void AddObserver(IObserver obs) {
+
             observers.Add (obs);
         }
         public void RemoveObserver(IObserver obs) {
