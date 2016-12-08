@@ -24,7 +24,7 @@ namespace MemeMaker.Meme {
 
             // Registering component to Subject Containers
             memeService.UserImageSubject.Handlers += FileListChanged;
-            //memeService.SelectedUserImageSubject.AddObserver (this);
+            memeService.SelectedUserImageSubject.Handlers += FileListSelectionChanged;
 
             this.MemeService = memeService;
             foreach(UserImage userImage in MemeService.UserImageList) {
@@ -46,6 +46,10 @@ namespace MemeMaker.Meme {
 
         }
 
+        public void FileListSelectionChanged (object sender, SelectionChangeEventArgs e) {
+
+        }
+
         public void FileListChanged (object sender, ObserverEventArgs e) {
 
             if (MemeService.UserImageList.Count > 1) {
@@ -60,6 +64,8 @@ namespace MemeMaker.Meme {
             }
 
         }
+
+
 
         private void FileListMouseDown (object sender, MouseEventArgs e) {
             if (e.Button != MouseButtons.Right)

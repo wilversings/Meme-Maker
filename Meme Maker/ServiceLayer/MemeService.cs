@@ -28,9 +28,6 @@ namespace MemeMaker.Meme {
         // Image related fields
         public Image Image { get; private set; }
 
-        public string UpperText { get; set; }
-        public string BottomText { get; set; }
-
         // Style/Font related fields
         public Font Font { get; set; }
         public SolidBrush Brush { get; set; }
@@ -53,26 +50,49 @@ namespace MemeMaker.Meme {
             return loadedImages.ContainsKey (path);
         }
 
-        public virtual Bitmap CreateMeme () {
+        protected virtual void DrawOn (UserImage im) {
 
-            if (Image == null)
-                return null;
-
-            Bitmap clone = Image.Clone () as Bitmap;
+            Bitmap image = im.CleanImage.Clone () as Bitmap;
 
             StringFormat format = new StringFormat ();
             format.LineAlignment = StringAlignment.Center;
             format.Alignment = StringAlignment.Center;
 
-            var topRect = new Rectangle (0, textMargin, Image.Width, Image.Height / textToImageRatio);
-            var bottomRect = new Rectangle (0, (textToImageRatio - 1) * Image.Height / textToImageRatio - textMargin, Image.Width, Image.Height / textToImageRatio);
+            var topRect = new Rectangle (0, textMargin, image.Width, image.Height / textToImageRatio);
+            var bottomRect = new Rectangle (0, (textToImageRatio - 1) * image.Height / textToImageRatio - textMargin, image.Width, image.Height / textToImageRatio);
 
-            using (Graphics gfx = Graphics.FromImage (clone)) {
-                gfx.DrawString (UpperText, Font, Brush, topRect, format);
-                gfx.DrawString (BottomText, Font, Brush, bottomRect, format);
+            using (Graphics gfx = Graphics.FromImage (image)) {
+                gfx.DrawString (im.UpperText, Font, Brush, topRect, format);
+                gfx.DrawString (im.BottomText, Font, Brush, bottomRect, format);
             }
 
-            return clone;
+            im.DirtyImage = image;
+
+        }
+
+        public virtual Bitmap CreateMeme () {
+
+            int totalHeight = 0, maxWidth = 0;
+
+            foreach (UserImage im in this.UserImageList) {
+                this.DrawOn (im);
+            }
+
+            // Computing the total height and width of the final image
+            foreach (Bitmap image in loadedImages.Values) {
+                totalHeight += image.Height;
+                maxWidth = Math.Max (maxWidth, image.Width);
+            }
+            Bitmap finalImage = new Bitmap (maxWidth, totalHeight);
+            using (Graphics gr = Graphics.FromImage (finalImage)) {
+                int partialSumHeight = 0;
+                foreach (UserImage image in this.UserImageList) {
+                    gr.DrawImage (image.DirtyImage, 0, partialSumHeight);
+                    partialSumHeight += image.DirtyImage.Height;
+                }
+            }
+            this.Image = finalImage;
+            return finalImage;
 
         }
 
@@ -82,6 +102,7 @@ namespace MemeMaker.Meme {
                 if (!loadedImages.ContainsKey (possibleNewImage.Path)) {
                     loadedImages[possibleNewImage.Path] = Image.FromFile (possibleNewImage.Path) as Bitmap;
                 }
+                possibleNewImage.CleanImage = loadedImages[possibleNewImage.Path];
             }
 
             foreach (string oldPath in loadedImages.Keys.ToList()) {
@@ -90,22 +111,7 @@ namespace MemeMaker.Meme {
                 }
             }
 
-            int totalHeight = 0, maxWidth = 0;
-            // Computing the total height and width of the final image
-            foreach (Bitmap image in loadedImages.Values) {
-                totalHeight += image.Height;
-                maxWidth = Math.Max (maxWidth, image.Width);
-            }
-            Bitmap finalImage = new Bitmap (maxWidth, totalHeight);
-            using (Graphics gr = Graphics.FromImage (finalImage)) {
-                int partialSumHeight = 0;
-                foreach (Bitmap image in loadedImages.Values) {
-                    gr.DrawImage (image, 0, partialSumHeight);
-                    partialSumHeight += image.Height;
-                }
-            }
-            this.Image = finalImage;
-            UserImageSubject.NotifyAll (new ObserverEventArgs());
+            this.UserImageSubject.NotifyAll (new ObserverEventArgs ());
 
         }
 

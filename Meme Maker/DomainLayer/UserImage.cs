@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,6 +25,8 @@ namespace MemeMaker.Domain {
         public string UpperText { get; set; }
         public string BottomText { get; set; }
         public bool Visible { get; set; }
+        public Bitmap CleanImage { get; set; }
+        public Bitmap DirtyImage { get; set; }
 
     }
 }

@@ -18,6 +18,9 @@ namespace MemeMaker {
 
         private MemeService MemeService { get; set; }
         public FileView FileView { get; set; }
+        private int selectedPath;
+
+        private bool suppressUpdateMeme = false;
 
         public MemeMaker (MemeService memeService) {
 
@@ -25,7 +28,7 @@ namespace MemeMaker {
 
             // Registering component to Subject Containers
             memeService.UserImageSubject.Handlers += FileListChanged;
-            //memeService.SelectedUserImageSubject.AddObserver (this);
+            memeService.SelectedUserImageSubject.Handlers += FileListSelectionChanged;
 
             this.MemeService = memeService;
 
@@ -40,12 +43,14 @@ namespace MemeMaker {
         }
 
         private void UpdateMeme () {
-            MemeService.UpperText = upperText.Text;
-            MemeService.BottomText = bottomText.Text;
+            MemeService.UserImageList[this.selectedPath].UpperText = upperText.Text;
+            MemeService.UserImageList[this.selectedPath].BottomText = bottomText.Text;
 
             meme.Image = MemeService.CreateMeme ();
         }
         private void UpdateMeme (object sender, EventArgs e) {
+            if (suppressUpdateMeme)
+                return;
             UpdateMeme ();
         }
 
@@ -55,6 +60,14 @@ namespace MemeMaker {
                 MemeService.LoadImages ();
                 meme.Image = MemeService.CreateMeme ();
             }
+        }
+
+        public void FileListSelectionChanged (object sender, SelectionChangeEventArgs e) {
+            this.selectedPath = e.NewIndex;
+            suppressUpdateMeme = true;
+            upperText.Text = MemeService.UserImageList[e.NewIndex].UpperText;
+            bottomText.Text = MemeService.UserImageList[e.NewIndex].BottomText;
+            suppressUpdateMeme = false;
         }
 
         private void UpdateTextStyle (object sender, EventArgs e) {
