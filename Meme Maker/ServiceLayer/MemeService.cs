@@ -22,8 +22,8 @@ namespace MemeMaker.Meme {
             loadedImages = new Dictionary<string, Bitmap> ();
             this.SetDefaultStyle ();
             this.Image = null;
-            this.UserImageSubject = new Subject<List<UserImage>, ObserverEventArgs> (new List<UserImage>(), "FileListChanged");
-            this.SelectedUserImageSubject = new Subject<int, SelectionChangeEventArgs> (new int(), "whatever");
+            this.UserImageSubject = new Subject<List<UserImage>, ObserverEventArgs> (new List<UserImage>());
+            this.SelectedUserImageSubject = new Subject<int, SelectionChangeEventArgs> (new int());
         }
         // Image related fields
         public Image Image { get; private set; }

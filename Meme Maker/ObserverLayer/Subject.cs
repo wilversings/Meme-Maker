@@ -7,33 +7,18 @@ using System.Collections.ObjectModel;
 using MemeMaker.ObserverLayer.EventArgs;
 
 namespace MemeMaker.ObserverLayer {
-    public class Subject<T, EventArgsType> where EventArgsType : ObserverEventArgs {
+    public class Subject<T, EventArgsType> {
 
-        private List<object> observers;
-        public string HandlerName { get; set; }
+        public delegate void handler (Subject<T, EventArgsType> sender, EventArgsType e);
+        public event handler Handlers;
         public T WatchableEntity { get; set; }
 
-        public Subject (T watchableEntity, string handlerMethodName) {
-            this.observers = new List<object> ();
+        public Subject (T watchableEntity) {
             this.WatchableEntity = watchableEntity;
-            this.HandlerName = handlerMethodName;
-        }
-
-        public void AddObserver(object obs) {
-
-            observers.Add (obs);
-        }
-        public void RemoveObserver(object obs) {
-            observers.Remove (obs);
         }
 
         public void NotifyAll (EventArgsType e) {
-
-            observers.ForEach (o => {
-                o.GetType ()
-                 .GetMethod (HandlerName)
-                 .Invoke (o, new object[] { this, e });
-            });
+            Handlers (this, e);
         }
 
     }

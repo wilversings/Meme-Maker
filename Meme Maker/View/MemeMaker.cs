@@ -24,8 +24,8 @@ namespace MemeMaker {
             InitializeComponent ();
 
             // Registering component to Subject Containers
-            memeService.UserImageSubject.AddObserver (this);
-            memeService.SelectedUserImageSubject.AddObserver (this);
+            memeService.UserImageSubject.Handlers += FileListChanged;
+            //memeService.SelectedUserImageSubject.AddObserver (this);
 
             this.MemeService = memeService;
 
@@ -88,7 +88,7 @@ namespace MemeMaker {
         private void MemeMakerKeyDown (object sender, KeyEventArgs e) {
 
             if (e.Modifiers == Keys.Control && e.KeyCode == Keys.S) {
-                SaveImage (null, null);
+                SaveImage (sender, e);
             }
 
         }

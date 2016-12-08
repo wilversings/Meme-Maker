@@ -23,8 +23,8 @@ namespace MemeMaker.Meme {
             InitializeComponent ();
 
             // Registering component to Subject Containers
-            memeService.UserImageSubject.AddObserver (this);
-            memeService.SelectedUserImageSubject.AddObserver (this);
+            memeService.UserImageSubject.Handlers += FileListChanged;
+            //memeService.SelectedUserImageSubject.AddObserver (this);
 
             this.MemeService = memeService;
             foreach(UserImage userImage in MemeService.UserImageList) {
