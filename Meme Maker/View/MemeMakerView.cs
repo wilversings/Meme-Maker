@@ -14,7 +14,7 @@ using MemeMaker.Domain;
 using MemeMaker.ObserverLayer.EventArgs;
 
 namespace MemeMaker {
-    public partial class MemeMaker : Form {
+    public partial class MemeMakerView : Form {
 
         private MemeService MemeService { get; set; }
         public FileView FileView { get; set; }
@@ -22,7 +22,7 @@ namespace MemeMaker {
 
         private bool suppressUpdateMeme = false;
 
-        public MemeMaker (MemeService memeService) {
+        public MemeMakerView (MemeService memeService) {
 
             InitializeComponent ();
 
@@ -41,17 +41,18 @@ namespace MemeMaker {
             this.FileView = new FileView (MemeService);
 
         }
-
-        private void UpdateMeme () {
+        private async Task UpdateMemeAsync () {
             MemeService.UserImageList[this.selectedPath].UpperText = upperText.Text;
             MemeService.UserImageList[this.selectedPath].BottomText = bottomText.Text;
 
-            meme.Image = MemeService.CreateMeme ();
+            Bitmap img = await MemeService.CreateMemeAsync ();
+            Console.WriteLine (img);
+            meme.Image = img;
         }
-        private void UpdateMeme (object sender, EventArgs e) {
+        private async void UpdateMeme (object sender, EventArgs e) {
             if (suppressUpdateMeme)
                 return;
-            UpdateMeme ();
+            await this.UpdateMemeAsync ();
         }
 
         private void BrowseForImageClick (object sender, EventArgs e) { 
@@ -113,8 +114,9 @@ namespace MemeMaker {
             UnifiedViewController.HandleDragEnter (sender, e, MemeService);
         }
 
-        public void FileListChanged (object sender, ObserverEventArgs e) {
-             this.UpdateMeme ();
+        public async void FileListChanged (object sender, ObserverEventArgs e) {
+             await this.UpdateMemeAsync ();
         }
+
     }
 }

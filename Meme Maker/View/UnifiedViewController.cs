@@ -15,12 +15,12 @@ namespace MemeMaker {
             try {
                 droppedFiles = e.Data.GetData (DataFormats.FileDrop) as string[];
             }
-            catch (System.ArgumentNullException ex) {
+            catch (System.ArgumentNullException) {
                 // Handling dragging anything other than files
                 return;
             }
-            // Checking the file formats
 
+            // Checking the file formats
             string file = droppedFiles.FirstOrDefault (f => MemeService.IsAcceptedFileFormat (f) && !memeService.HasLoadedPath (f));
             if (file == null) {
                 return;

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Meme_Maker.ObserverLayer {
+namespace MemeMaker.ObserverLayer {
     class ObserverHandler : System.Attribute {
 
         string SubjectName { get; set; }

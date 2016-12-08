@@ -1,5 +1,5 @@
 ﻿namespace MemeMaker {
-    partial class MemeMaker {
+    partial class MemeMakerView {
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -47,7 +47,7 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.meme = new UIComponents.PanZoomPictureBox();
+            this.meme = new MemeMaker.UIComponents.PanZoomPictureBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fontSizeNumeric)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -258,7 +258,7 @@
             this.meme.TabIndex = 0;
             this.meme.TabStop = false;
             // 
-            // MemeMaker
+            // MemeMakerView
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -281,7 +281,7 @@
             this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip1;
             this.MaximizeBox = false;
-            this.Name = "MemeMaker";
+            this.Name = "MemeMakerView";
             this.Text = "Meme Maker";
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.MemeMakerDragDrop);
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.MemeMakerDragEnter);

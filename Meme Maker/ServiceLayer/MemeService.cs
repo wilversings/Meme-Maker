@@ -95,6 +95,9 @@ namespace MemeMaker.Meme {
             return finalImage;
 
         }
+        public virtual async Task<Bitmap> CreateMemeAsync() {
+            return await Task.Run(() => CreateMeme ());
+        }
 
         public void LoadImages () {
 
