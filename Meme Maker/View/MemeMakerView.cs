@@ -20,8 +20,6 @@ namespace MemeMaker {
         public FileView FileView { get; set; }
         private int selectedPath;
 
-        private bool suppressUpdateMeme = false;
-
         public MemeMakerView (MemeService memeService) {
 
             InitializeComponent ();
@@ -49,11 +47,6 @@ namespace MemeMaker {
             Console.WriteLine (img);
             meme.Image = img;
         }
-        private async void UpdateMeme (object sender, EventArgs e) {
-            if (suppressUpdateMeme)
-                return;
-            await this.UpdateMemeAsync ();
-        }
 
         private void BrowseForImageClick (object sender, EventArgs e) { 
             if (imageOpenDialog.ShowDialog () == DialogResult.OK) {
@@ -65,10 +58,8 @@ namespace MemeMaker {
 
         public void FileListSelectionChanged (object sender, SelectionChangeEventArgs e) {
             this.selectedPath = e.NewIndex;
-            suppressUpdateMeme = true;
             upperText.Text = MemeService.UserImageList[e.NewIndex].UpperText;
             bottomText.Text = MemeService.UserImageList[e.NewIndex].BottomText;
-            suppressUpdateMeme = false;
         }
 
         private void UpdateTextStyle (object sender, EventArgs e) {
@@ -118,5 +109,8 @@ namespace MemeMaker {
              await this.UpdateMemeAsync ();
         }
 
+        private async void MakeMemeButtonClick (object sender, EventArgs e) {
+            await this.UpdateMemeAsync ();
+        }
     }
 }

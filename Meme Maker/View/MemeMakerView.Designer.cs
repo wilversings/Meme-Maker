@@ -30,11 +30,12 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.meme = new MemeMaker.UIComponents.PanZoomPictureBox();
+            this.browseButton = new System.Windows.Forms.Button();
             this.imageOpenDialog = new System.Windows.Forms.OpenFileDialog();
             this.fontComboBox = new System.Windows.Forms.ComboBox();
             this.fontSizeNumeric = new System.Windows.Forms.NumericUpDown();
-            this.button2 = new System.Windows.Forms.Button();
+            this.saveAsButton = new System.Windows.Forms.Button();
             this.imageSaveDialog = new System.Windows.Forms.SaveFileDialog();
             this.boldCheckBox = new System.Windows.Forms.CheckBox();
             this.italicCheckBox = new System.Windows.Forms.CheckBox();
@@ -47,11 +48,11 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.meme = new MemeMaker.UIComponents.PanZoomPictureBox();
+            this.makeMemeButton = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.meme)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.fontSizeNumeric)).BeginInit();
             this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.meme)).BeginInit();
             this.SuspendLayout();
             // 
             // imageList1
@@ -67,7 +68,6 @@
             this.upperText.Size = new System.Drawing.Size(193, 60);
             this.upperText.TabIndex = 0;
             this.upperText.Text = "";
-            this.upperText.TextChanged += new System.EventHandler(this.UpdateMeme);
             // 
             // bottomText
             // 
@@ -76,7 +76,6 @@
             this.bottomText.Size = new System.Drawing.Size(212, 61);
             this.bottomText.TabIndex = 1;
             this.bottomText.Text = "";
-            this.bottomText.TextChanged += new System.EventHandler(this.UpdateMeme);
             // 
             // label1
             // 
@@ -99,22 +98,30 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.meme);
-            this.groupBox1.Location = new System.Drawing.Point(12, 231);
+            this.groupBox1.Location = new System.Drawing.Point(12, 262);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(412, 305);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Meme";
             // 
-            // button1
+            // meme
             // 
-            this.button1.Location = new System.Drawing.Point(12, 159);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(108, 23);
-            this.button1.TabIndex = 5;
-            this.button1.Text = "Browse for image...";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.BrowseForImageClick);
+            this.meme.Location = new System.Drawing.Point(8, 19);
+            this.meme.Name = "meme";
+            this.meme.Size = new System.Drawing.Size(394, 267);
+            this.meme.TabIndex = 0;
+            this.meme.TabStop = false;
+            // 
+            // browseButton
+            // 
+            this.browseButton.Location = new System.Drawing.Point(12, 190);
+            this.browseButton.Name = "browseButton";
+            this.browseButton.Size = new System.Drawing.Size(108, 23);
+            this.browseButton.TabIndex = 5;
+            this.browseButton.Text = "Browse for image...";
+            this.browseButton.UseVisualStyleBackColor = true;
+            this.browseButton.Click += new System.EventHandler(this.BrowseForImageClick);
             // 
             // imageOpenDialog
             // 
@@ -126,7 +133,7 @@
             // 
             this.fontComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.fontComboBox.FormattingEnabled = true;
-            this.fontComboBox.Location = new System.Drawing.Point(127, 160);
+            this.fontComboBox.Location = new System.Drawing.Point(127, 191);
             this.fontComboBox.Name = "fontComboBox";
             this.fontComboBox.Size = new System.Drawing.Size(133, 21);
             this.fontComboBox.TabIndex = 6;
@@ -134,7 +141,7 @@
             // 
             // fontSizeNumeric
             // 
-            this.fontSizeNumeric.Location = new System.Drawing.Point(267, 160);
+            this.fontSizeNumeric.Location = new System.Drawing.Point(267, 191);
             this.fontSizeNumeric.Minimum = new decimal(new int[] {
             1,
             0,
@@ -150,15 +157,15 @@
             0});
             this.fontSizeNumeric.ValueChanged += new System.EventHandler(this.UpdateTextStyle);
             // 
-            // button2
+            // saveAsButton
             // 
-            this.button2.Location = new System.Drawing.Point(349, 202);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 8;
-            this.button2.Text = "Save as...";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.SaveImage);
+            this.saveAsButton.Location = new System.Drawing.Point(348, 219);
+            this.saveAsButton.Name = "saveAsButton";
+            this.saveAsButton.Size = new System.Drawing.Size(75, 23);
+            this.saveAsButton.TabIndex = 8;
+            this.saveAsButton.Text = "Save as...";
+            this.saveAsButton.UseVisualStyleBackColor = true;
+            this.saveAsButton.Click += new System.EventHandler(this.SaveImage);
             // 
             // imageSaveDialog
             // 
@@ -168,7 +175,7 @@
             // boldCheckBox
             // 
             this.boldCheckBox.AutoSize = true;
-            this.boldCheckBox.Location = new System.Drawing.Point(312, 161);
+            this.boldCheckBox.Location = new System.Drawing.Point(312, 192);
             this.boldCheckBox.Name = "boldCheckBox";
             this.boldCheckBox.Size = new System.Drawing.Size(47, 17);
             this.boldCheckBox.TabIndex = 9;
@@ -179,7 +186,7 @@
             // italicCheckBox
             // 
             this.italicCheckBox.AutoSize = true;
-            this.italicCheckBox.Location = new System.Drawing.Point(366, 162);
+            this.italicCheckBox.Location = new System.Drawing.Point(366, 193);
             this.italicCheckBox.Name = "italicCheckBox";
             this.italicCheckBox.Size = new System.Drawing.Size(48, 17);
             this.italicCheckBox.TabIndex = 10;
@@ -189,7 +196,7 @@
             // 
             // changeColorButton
             // 
-            this.changeColorButton.Location = new System.Drawing.Point(12, 188);
+            this.changeColorButton.Location = new System.Drawing.Point(12, 219);
             this.changeColorButton.Name = "changeColorButton";
             this.changeColorButton.Size = new System.Drawing.Size(75, 23);
             this.changeColorButton.TabIndex = 11;
@@ -250,13 +257,15 @@
             this.closeToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
             this.closeToolStripMenuItem.Text = "Close";
             // 
-            // meme
+            // makeMemeButton
             // 
-            this.meme.Location = new System.Drawing.Point(8, 19);
-            this.meme.Name = "meme";
-            this.meme.Size = new System.Drawing.Size(394, 267);
-            this.meme.TabIndex = 0;
-            this.meme.TabStop = false;
+            this.makeMemeButton.Location = new System.Drawing.Point(348, 159);
+            this.makeMemeButton.Name = "makeMemeButton";
+            this.makeMemeButton.Size = new System.Drawing.Size(75, 23);
+            this.makeMemeButton.TabIndex = 13;
+            this.makeMemeButton.Text = "Make";
+            this.makeMemeButton.UseVisualStyleBackColor = true;
+            this.makeMemeButton.Click += new System.EventHandler(this.MakeMemeButtonClick);
             // 
             // MemeMakerView
             // 
@@ -264,13 +273,14 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(436, 561);
+            this.Controls.Add(this.makeMemeButton);
             this.Controls.Add(this.changeColorButton);
             this.Controls.Add(this.italicCheckBox);
             this.Controls.Add(this.boldCheckBox);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.saveAsButton);
             this.Controls.Add(this.fontSizeNumeric);
             this.Controls.Add(this.fontComboBox);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.browseButton);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -287,10 +297,10 @@
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.MemeMakerDragEnter);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MemeMakerKeyDown);
             this.groupBox1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.meme)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.fontSizeNumeric)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.meme)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -303,11 +313,11 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button browseButton;
         private System.Windows.Forms.OpenFileDialog imageOpenDialog;
         private System.Windows.Forms.ComboBox fontComboBox;
         private System.Windows.Forms.NumericUpDown fontSizeNumeric;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button saveAsButton;
         private System.Windows.Forms.SaveFileDialog imageSaveDialog;
         private System.Windows.Forms.CheckBox italicCheckBox;
         private System.Windows.Forms.CheckBox boldCheckBox;
@@ -321,6 +331,7 @@
         private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveAsToolStripMenuItem;
         private UIComponents.PanZoomPictureBox meme;
+        private System.Windows.Forms.Button makeMemeButton;
     }
 }
 
