@@ -40,7 +40,7 @@ namespace MemeMaker.Meme {
             switch (e.ClickedItem.Text) {
                 case "Remove":
                     MemeService.UserImageList.RemoveAt (selectedMenuIndex);
-                    this.MemeService.LoadImages ();
+                    MemeService.UserImageSubject.NotifyAll (null);
                     break;
             }
 
@@ -52,21 +52,12 @@ namespace MemeMaker.Meme {
 
         public void FileListChanged (object sender, ObserverEventArgs e) {
 
-            if (MemeService.UserImageList.Count > 1) {
-                this.Show ();
-                this.fileList.Items.Clear ();
-                foreach (UserImage userImage in MemeService.UserImageList) {
-                    this.fileList.Items.Add (userImage.Path);
-                }
-            }
-            else {
-                this.Hide ();
+            this.fileList.Items.Clear ();
+            foreach (UserImage userImage in MemeService.UserImageList) {
+                this.fileList.Items.Add (userImage.Path);
             }
 
         }
-
-
-
         private void FileListMouseDown (object sender, MouseEventArgs e) {
             if (e.Button != MouseButtons.Right)
                 return;
@@ -83,7 +74,6 @@ namespace MemeMaker.Meme {
         private void ItemSelectionChanged (object sender, EventArgs e) {
             MemeService.SelectedUserImageSubject.WatchableEntity = this.fileList.SelectedIndex;
             MemeService.SelectedUserImageSubject.NotifyAll (new ObserverLayer.EventArgs.SelectionChangeEventArgs {
-                OldIndex = 3, //faked
                 NewIndex = fileList.SelectedIndex,
                 NewPath = fileList.SelectedItem.ToString()
             });

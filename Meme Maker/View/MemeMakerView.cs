@@ -37,6 +37,7 @@ namespace MemeMaker {
             }
 
             this.FileView = new FileView (MemeService);
+            this.FileView.Show ();
 
         }
         private async Task UpdateMemeAsync () {
