@@ -98,14 +98,16 @@ namespace MemeMaker.Meme {
                 possibleNewImage.CleanImage = loadedImages[possibleNewImage.Path];
             }
 
-            foreach (string oldPath in loadedImages.Keys.ToList()) {
-                if (!UserImageSubject.WatchableEntity.Select(u => u.Path).Contains(oldPath)) {
+            this.UserImageSubject.NotifyAll (null);
+
+        }
+
+        public void ClearUnusedImages () {
+            foreach (string oldPath in loadedImages.Keys.ToList ()) {
+                if (!UserImageSubject.WatchableEntity.Select (u => u.Path).Contains (oldPath)) {
                     loadedImages.Remove (oldPath);
                 }
             }
-
-            this.UserImageSubject.NotifyAll (new ObserverEventArgs ());
-
         }
 
         private static HashSet<string> acceptedFileFormats = new HashSet<string> (new string[]{

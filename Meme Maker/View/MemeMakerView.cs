@@ -37,16 +37,13 @@ namespace MemeMaker {
             }
 
             this.FileView = new FileView (MemeService);
-            this.FileView.Show ();
 
         }
         private async Task UpdateMemeAsync () {
             MemeService.UserImageList[this.selectedPath].UpperText = upperText.Text;
             MemeService.UserImageList[this.selectedPath].BottomText = bottomText.Text;
 
-            Bitmap img = await MemeService.CreateMemeAsync ();
-            Console.WriteLine (img);
-            meme.Image = img;
+            meme.Image = await MemeService.CreateMemeAsync ();
         }
 
         private void BrowseForImageClick (object sender, EventArgs e) { 
@@ -138,8 +135,8 @@ namespace MemeMaker {
             UnifiedViewController.HandleDragEnter (sender, e, MemeService);
         }
 
-        public async void FileListChanged (object sender, ObserverEventArgs e) {
-             await this.UpdateMemeAsync ();
+        public void FileListChanged (object sender, ObserverEventArgs e) {
+            meme.Image = MemeService.CreateMeme ();
         }
 
         private async void MakeMemeButtonClick (object sender, EventArgs e) {

@@ -40,6 +40,7 @@ namespace MemeMaker.Meme {
             switch (e.ClickedItem.Text) {
                 case "Remove":
                     MemeService.UserImageList.RemoveAt (selectedMenuIndex);
+                    MemeService.ClearUnusedImages ();
                     MemeService.UserImageSubject.NotifyAll (null);
                     break;
             }
@@ -51,10 +52,15 @@ namespace MemeMaker.Meme {
         }
 
         public void FileListChanged (object sender, ObserverEventArgs e) {
-
-            this.fileList.Items.Clear ();
-            foreach (UserImage userImage in MemeService.UserImageList) {
-                this.fileList.Items.Add (userImage.Path);
+            if (MemeService.UserImageList.Count > 1) {
+                this.fileList.Items.Clear ();
+                foreach (UserImage userImage in MemeService.UserImageList) {
+                    this.fileList.Items.Add (userImage.Path);
+                }
+                this.Show ();
+            } 
+            else {
+                this.Hide ();
             }
 
         }
