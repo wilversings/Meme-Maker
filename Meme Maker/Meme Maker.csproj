@@ -49,7 +49,6 @@
     <Compile Include="DomainLayer\UserImage.cs" />
     <Compile Include="ObserverLayer\EventArgs\ObserverEventArgs.cs" />
     <Compile Include="ObserverLayer\EventArgs\SelectionChangeEventArgs.cs" />
-    <Compile Include="ObserverLayer\ObserverHandler.cs" />
     <Compile Include="UIComponents\PanZoomPictureBox.cs">
       <SubType>Component</SubType>
     </Compile>

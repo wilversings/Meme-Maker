@@ -20,17 +20,12 @@ namespace MemeMaker.Meme {
 
         public MemeService () {
             loadedImages = new Dictionary<string, Bitmap> ();
-            this.SetDefaultStyle ();
             this.Image = null;
             this.UserImageSubject = new Subject<List<UserImage>, ObserverEventArgs> (new List<UserImage>());
             this.SelectedUserImageSubject = new Subject<int, SelectionChangeEventArgs> (new int());
         }
         // Image related fields
         public Image Image { get; private set; }
-
-        // Style/Font related fields
-        public Font Font { get; set; }
-        public SolidBrush Brush { get; set; }
 
         protected const int textToImageRatio = 4;
         protected const int textMargin = 10;
@@ -39,11 +34,6 @@ namespace MemeMaker.Meme {
             get {
                 return UserImageSubject.WatchableEntity;
             }
-        }
-
-        private void SetDefaultStyle () {
-            Font = new Font ("Arial", 30);
-            Brush = new SolidBrush (Color.Black);
         }
 
         public bool HasLoadedPath (string path) {
@@ -62,8 +52,8 @@ namespace MemeMaker.Meme {
             var bottomRect = new Rectangle (0, (textToImageRatio - 1) * image.Height / textToImageRatio - textMargin, image.Width, image.Height / textToImageRatio);
 
             using (Graphics gfx = Graphics.FromImage (image)) {
-                gfx.DrawString (im.UpperText, Font, Brush, topRect, format);
-                gfx.DrawString (im.BottomText, Font, Brush, bottomRect, format);
+                gfx.DrawString (im.UpperText, im.Font, im.Brush, topRect, format);
+                gfx.DrawString (im.BottomText, im.Font, im.Brush, bottomRect, format);
             }
 
             im.DirtyImage = image;

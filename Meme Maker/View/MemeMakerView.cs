@@ -57,12 +57,34 @@ namespace MemeMaker {
         }
 
         public void FileListSelectionChanged (object sender, SelectionChangeEventArgs e) {
+
             this.selectedPath = e.NewIndex;
-            upperText.Text = MemeService.UserImageList[e.NewIndex].UpperText;
-            bottomText.Text = MemeService.UserImageList[e.NewIndex].BottomText;
+
+            UserImage selectedIm = MemeService.UserImageList[e.NewIndex];
+
+            object itemToSelect = null;
+            foreach (object fontComboBoxItem in fontComboBox.Items) {
+                if (fontComboBoxItem as string == selectedIm.Font.Name) {
+                    itemToSelect = fontComboBoxItem;
+                }
+            }
+
+            suppressUpdateTextStyle = suppressBoxTextChanged = true;
+            fontComboBox.SelectedItem = itemToSelect;
+            upperText.Text = selectedIm.UpperText;
+            bottomText.Text = selectedIm.BottomText;
+            fontSizeNumeric.Value = (decimal)selectedIm.Font.Size;
+            boldCheckBox.Checked = selectedIm.Font.Bold;
+            italicCheckBox.Checked = selectedIm.Font.Italic;
+            suppressUpdateTextStyle = suppressBoxTextChanged = false;
+
         }
 
+        bool suppressUpdateTextStyle = false;
         private void UpdateTextStyle (object sender, EventArgs e) {
+            if (suppressUpdateTextStyle)
+                return;
+
             var newFont = new Font (
                 fontComboBox.SelectedItem as string,
                 (int)fontSizeNumeric.Value,
@@ -70,8 +92,19 @@ namespace MemeMaker {
                 (italicCheckBox.Checked ? FontStyle.Italic : FontStyle.Regular)
             );
                 
-            MemeService.Font = newFont;
-            meme.Image = MemeService.CreateMeme ();
+            MemeService.UserImageList[this.selectedPath].Font = newFont;
+        }
+
+        bool suppressBoxTextChanged = false;
+        private void BoxTextChanged (object sender, EventArgs e) {
+            if (suppressBoxTextChanged)
+                return;
+
+            UserImage selectedIm = MemeService.UserImageList[this.selectedPath];
+
+            selectedIm.BottomText = bottomText.Text;
+            selectedIm.UpperText = upperText.Text;
+
         }
 
         private void SaveImage (object sender, EventArgs e) {
@@ -86,8 +119,7 @@ namespace MemeMaker {
 
         private void ChangeColor (object sender, EventArgs e) {
             textColorDialog.ShowDialog ();
-            MemeService.Brush = new SolidBrush (textColorDialog.Color);
-            meme.Image = MemeService.CreateMeme ();
+            MemeService.UserImageList[this.selectedPath].Brush = new SolidBrush (textColorDialog.Color);
         }
 
         private void MemeMakerKeyDown (object sender, KeyEventArgs e) {
@@ -112,5 +144,7 @@ namespace MemeMaker {
         private async void MakeMemeButtonClick (object sender, EventArgs e) {
             await this.UpdateMemeAsync ();
         }
+
+        
     }
 }

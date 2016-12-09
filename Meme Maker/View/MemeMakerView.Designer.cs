@@ -68,6 +68,7 @@
             this.upperText.Size = new System.Drawing.Size(193, 60);
             this.upperText.TabIndex = 0;
             this.upperText.Text = "";
+            this.upperText.TextChanged += new System.EventHandler(this.BoxTextChanged);
             // 
             // bottomText
             // 
@@ -76,6 +77,7 @@
             this.bottomText.Size = new System.Drawing.Size(212, 61);
             this.bottomText.TabIndex = 1;
             this.bottomText.Text = "";
+            this.bottomText.TextChanged += new System.EventHandler(this.BoxTextChanged);
             // 
             // label1
             // 

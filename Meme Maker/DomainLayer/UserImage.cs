@@ -13,12 +13,14 @@ namespace MemeMaker.Domain {
             this.UpperText = "";
             this.BottomText = "";
             this.Visible = true;
+            this.SetDefaultStyle ();
         }
         public UserImage (string Path) {
             this.Path = Path;
             this.UpperText = "";
             this.BottomText = "";
             this.Visible = true;
+            this.SetDefaultStyle ();
         }
 
         public string Path { get; set; }
@@ -27,6 +29,13 @@ namespace MemeMaker.Domain {
         public bool Visible { get; set; }
         public Bitmap CleanImage { get; set; }
         public Bitmap DirtyImage { get; set; }
+        public Font Font { get; set; }
+        public SolidBrush Brush { get; set; }
+
+        private void SetDefaultStyle () {
+            Font = new Font ("Arial", 30);
+            Brush = new SolidBrush (Color.Black);
+        }
 
     }
 }
